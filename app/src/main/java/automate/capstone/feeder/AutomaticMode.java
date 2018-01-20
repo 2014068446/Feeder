@@ -1,5 +1,6 @@
 package automate.capstone.feeder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -67,10 +68,26 @@ public class AutomaticMode extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
+        if (id == R.id.nav_auto) {
+            Intent intent = new Intent(this, AutomaticMode.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_man) {
+            Intent intent = new Intent(this, ManualMode.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_logs) {
+            Intent intent = new Intent(this, ViewLogs.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_schedule) {
+            Intent intent = new Intent(this, ViewScheduleList.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(this, Settings.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
