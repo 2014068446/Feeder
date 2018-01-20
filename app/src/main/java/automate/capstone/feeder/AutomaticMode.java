@@ -1,6 +1,5 @@
 package automate.capstone.feeder;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,13 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HomeActivity extends AppCompatActivity
+public class AutomaticMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_automatic_mode);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,14 +44,11 @@ public class HomeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    public void chooseAutomatic(View view){
-        Intent homeIntent = new Intent(HomeActivity.this, AutomaticMode.class);
-        startActivity(homeIntent);
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.automatic_mode, menu);
         return true;
     }
 
@@ -77,15 +73,17 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_auto) {
+        if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_man) {
+        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_logs) {
+        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_schedule) {
+        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
 
         }
 
