@@ -1,6 +1,5 @@
 package automate.capstone.feeder;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,16 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HomeActivity extends AppCompatActivity
+public class ViewSchedule extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_view_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -45,32 +43,11 @@ public class HomeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    public void chooseAutomatic(View view){
-        Intent intent = new Intent(HomeActivity.this, AutomaticMode.class);
-        startActivity(intent);
-    }
-
-    public void chooseManual(View view){
-        Intent intent = new Intent(HomeActivity.this, ManualMode.class);
-        startActivity(intent);
-    }
-
-    public void chooseViewLogs(View view){
-        Intent intent = new Intent(HomeActivity.this, ViewLogs.class);
-        startActivity(intent);
-    }
-
-    public void chooseSettings(View view){
-        Intent intent = new Intent(HomeActivity.this, Settings.class);
-        startActivity(intent);
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.view_schedule, menu);
         return true;
     }
 
@@ -95,15 +72,17 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_auto) {
+        if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_man) {
+        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_logs) {
+        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_schedule) {
+        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
 
         }
 
@@ -111,8 +90,4 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
 }

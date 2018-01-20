@@ -33,6 +33,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Manual Mode"
+        android:onClick="chooseManual"
         android:id="@+id/btn_Manual"
         android:layout_below="@+id/btn_Automatic"
         android:layout_centerHorizontal="true"
@@ -44,6 +45,7 @@
         android:text="View Logs"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/btn_Manual"
+        android:onClick="chooseViewLogs"
         android:layout_alignStart="@+id/btn_Manual" />
 
 </RelativeLayout>

@@ -29,6 +29,51 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="automate.capstone.feeder.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ManualMode"
+            android:label="@string/title_activity_manual_mode"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="automate.capstone.feeder.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ViewLogs"
+            android:label="@string/title_activity_view_logs"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="automate.capstone.feeder.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="automate.capstone.feeder.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ViewScheduleList"
+            android:label="@string/title_activity_view_schedule_list"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="automate.capstone.feeder.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ViewSchedule"
+            android:label="@string/title_activity_view_schedule"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="automate.capstone.feeder.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
