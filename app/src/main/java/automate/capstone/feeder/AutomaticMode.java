@@ -1,9 +1,10 @@
 package automate.capstone.feeder;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,11 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class AutomaticMode extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    Spinner spnrDuration;
+    Spinner spnrMeasure;
+    Button btnStartDate;
+    Button btnTime;
+    TextView tvStartDate;
+    TextView tvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +39,37 @@ public class AutomaticMode extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        btnTime = (Button) findViewById(R.id.btn_time);
+        btnTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timepicker = new TimePickerFragment();
+                timepicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
 
+        btnStartDate = (Button) findViewById(R.id.btn_sampletime);
+        btnStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datepicker = new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapter;
+
+        spnrMeasure = (Spinner) findViewById(R.id.spnr_unit);
+        adapter = ArrayAdapter.createFromResource(this,
+                R.array.measure_key, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnrMeasure.setAdapter(adapter);
+
+        spnrDuration = (Spinner) findViewById(R.id.spnr_duration);
+        adapter = ArrayAdapter.createFromResource(this,
+                R.array.duration_key, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnrDuration.setAdapter(adapter);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -37,6 +82,24 @@ public class AutomaticMode extends AppCompatActivity
     }
 
     @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        tvTime = (TextView) findViewById(R.id.tv_time_desc);
+        tvTime.setText(hourOfDay + " : " + minute);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        tvStartDate = (TextView) findViewById(R.id.tv_start_date_desc);
+        tvStartDate.setText(currentDateString);
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -45,7 +108,6 @@ public class AutomaticMode extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

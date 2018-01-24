@@ -9,25 +9,44 @@
     tools:context="automate.capstone.feeder.ManualMode"
     tools:showIn="@layout/app_bar_manual_mode">
 
-
-
     <TextView
+        android:id="@+id/tv_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Amount of Feeds"
-        />
+        android:textColor="@android:color/background_dark"
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="101dp"
+        android:text="Enter Amount of Feeds" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:id="@+id/et_manual_feed"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_alignStart="@+id/tv_desc"
+        android:layout_below="@+id/tv_desc"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
-        />
+    <Spinner
+        android:id="@+id/spnr_manual_unit"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/et_manual_feed"
+        android:layout_marginStart="19dp"
+        android:layout_toEndOf="@+id/et_manual_feed"
+        android:background="?attr/colorButtonNormal"
+        android:entries="@array/measure_key" />
 
     <Button
+        android:id="@+id/btn_drop_feeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
-        />
-
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Drop Feeds" />
 
 </RelativeLayout>

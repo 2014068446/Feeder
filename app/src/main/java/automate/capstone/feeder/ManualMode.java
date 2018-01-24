@@ -13,16 +13,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class ManualMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    Spinner spnrMeasure;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_mode);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ArrayAdapter<CharSequence> adapter;
+
+        spnrMeasure = (Spinner) findViewById(R.id.spnr_manual_unit);
+        adapter = ArrayAdapter.createFromResource(this,
+                R.array.measure_key, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnrMeasure.setAdapter(adapter);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -32,6 +42,7 @@ public class ManualMode extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
