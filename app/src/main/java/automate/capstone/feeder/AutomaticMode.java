@@ -48,7 +48,7 @@ public class AutomaticMode extends AppCompatActivity
             }
         });
 
-        btnStartDate = (Button) findViewById(R.id.btn_sampletime);
+        btnStartDate = (Button) findViewById(R.id.btn_start_date);
         btnStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class AutomaticMode extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override

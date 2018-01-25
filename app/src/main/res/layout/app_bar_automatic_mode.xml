@@ -22,5 +22,4 @@
 
     <include layout="@layout/content_automatic_mode" />
 
-
 </android.support.design.widget.CoordinatorLayout>

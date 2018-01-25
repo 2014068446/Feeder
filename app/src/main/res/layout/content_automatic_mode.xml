@@ -28,6 +28,7 @@
         android:layout_alignBaseline="@+id/tv_schedule_name"
         android:layout_alignBottom="@+id/tv_schedule_name"
         android:layout_toEndOf="@+id/tv_schedule_name"
+        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@android:color/background_dark" />
@@ -127,12 +128,11 @@
         android:id="@+id/tv_sampletime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btn_time"
-        android:layout_below="@+id/tv_schedule"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="28dp"
         android:text="Sample time"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:layout_below="@+id/tv_schedule"
+        android:layout_toStartOf="@+id/btn_sampletime" />
 
     <Button
         android:id="@+id/btn_sampletime"
@@ -159,29 +159,30 @@
         android:id="@+id/et_feeds"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_below="@+id/textView13"
-        android:layout_marginTop="15dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_alignStart="@+id/btn_time" />
 
     <Spinner
         android:id="@+id/spnr_unit"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/et_feeds"
-        android:layout_toStartOf="@+id/et_schedule_name"
         android:background="?attr/colorButtonNormal"
-        android:entries="@array/measure_key" />
+        android:entries="@array/measure_key"
+        android:layout_alignTop="@+id/et_feeds"
+        android:layout_toEndOf="@+id/et_feeds" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spnr_unit"
-        android:layout_toEndOf="@+id/btn_sampletime"
-        android:text="Save" />
+        android:text="Save"
+        android:layout_marginBottom="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/btn_time" />
 
 
 </RelativeLayout>

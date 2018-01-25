@@ -24,22 +24,23 @@
         android:id="@+id/et_manual_feed"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:layout_alignStart="@+id/tv_desc"
-        android:layout_below="@+id/tv_desc"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="17dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/background_dark"
+        android:layout_below="@+id/tv_desc"
+        android:layout_alignEnd="@+id/btn_drop_feeds" />
 
     <Spinner
         android:id="@+id/spnr_manual_unit"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_alignTop="@+id/et_manual_feed"
-        android:layout_marginStart="19dp"
-        android:layout_toEndOf="@+id/et_manual_feed"
         android:background="?attr/colorButtonNormal"
-        android:entries="@array/measure_key" />
+        android:entries="@array/measure_key"
+        android:layout_alignBottom="@+id/et_manual_feed"
+        android:layout_toEndOf="@+id/et_manual_feed"
+        android:layout_marginStart="13dp" />
 
     <Button
         android:id="@+id/btn_drop_feeds"
