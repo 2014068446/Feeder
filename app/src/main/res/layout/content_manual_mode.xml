@@ -24,13 +24,14 @@
         android:id="@+id/et_manual_feed"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/btn_drop_feeds"
+        android:layout_below="@+id/tv_desc"
         android:layout_marginTop="17dp"
+        android:textCursorDrawable="@android:color/darker_gray"
         android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@android:color/background_dark"
-        android:layout_below="@+id/tv_desc"
-        android:layout_alignEnd="@+id/btn_drop_feeds" />
+        android:textColor="@android:color/background_dark" />
 
     <Spinner
         android:id="@+id/spnr_manual_unit"
