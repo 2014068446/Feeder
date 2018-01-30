@@ -16,10 +16,12 @@ import android.view.MenuItem;
 
 public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    DatabaseHelper dh = new DatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String type="view logs";
+        dh.execute(type,null,null);
         setContentView(R.layout.activity_view_logs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

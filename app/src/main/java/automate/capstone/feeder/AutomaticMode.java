@@ -20,6 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -31,14 +34,17 @@ public class AutomaticMode extends AppCompatActivity
     Button btnTime;
     TextView tvStartDate;
     TextView tvTime;
-
+    TextView tv_schedule_name;
+    TextView tv_feed;
+    DatabaseHelper dh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automatic_mode);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        tv_schedule_name = (TextView) findViewById(R.id.tv_schedule_name);
+        tv_feed = (TextView) findViewById(R.id.tv_feed);
         btnTime = (Button) findViewById(R.id.btn_time);
         btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,5 +157,9 @@ public class AutomaticMode extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    public void saveLog(View view) throws SQLException {
+        String title = tv_schedule_name.getText().toString()+" has ben created (Automatic Schedule)";
+        String log = "This schedule will serve "+tv_feed.getText().toString()+" every meal";
+        //dh.test();
+    }
 }
