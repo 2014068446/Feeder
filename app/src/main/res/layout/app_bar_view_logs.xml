@@ -22,5 +22,4 @@
 
     <include layout="@layout/content_view_logs" />
 
-
 </android.support.design.widget.CoordinatorLayout>

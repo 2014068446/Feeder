@@ -20,7 +20,6 @@
         android:text="Schedule Name:"
         android:textColor="@android:color/background_dark"
         android:textSize="25sp" />
-
     <EditText
         android:id="@+id/et_schedule_name"
         android:layout_width="150dp"

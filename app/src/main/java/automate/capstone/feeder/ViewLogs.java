@@ -1,5 +1,6 @@
 package automate.capstone.feeder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,16 +14,53 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     DatabaseHelper dh = new DatabaseHelper(this);
+    JSONObject jsonObject;
+    JSONArray jsonArray;
+    TextView test;
+    ListView listView;
+    ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String type="view logs";
-        dh.execute(type,null,null);
         setContentView(R.layout.activity_view_logs);
+
+        try {
+            JSONObject obj = new JSONObject(Store.logs);
+            JSONArray logss = obj.getJSONArray("logs");
+            String stor3 ="";
+            for(int i = 0; i < logss.length();i++) {
+                JSONObject innerObj = logss.getJSONObject(i);
+                for(Iterator it = innerObj.keys(); it.hasNext(); ) {
+                    String key = (String)it.next();
+                    System.out.println(key + ":" + innerObj.get(key));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listView = (ListView) findViewById(R.id.listview);
+        Toast.makeText(this,Store.logs,LENGTH_LONG).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -95,5 +133,6 @@ public class ViewLogs extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }

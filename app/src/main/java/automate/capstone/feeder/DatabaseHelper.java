@@ -15,12 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by rapio on 29/01/2018.
@@ -28,14 +22,16 @@ import java.sql.Statement;
 
 public class DatabaseHelper extends AsyncTask<String,Void,String>{
     Context context;
+    public AsyncResponse delegate=null;
     AlertDialog alertDialog;
+
     DatabaseHelper(Context ctx){
         context = ctx;
     }
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String home_url="http://192.168.1.7/feeder";
+        String home_url="http://192.168.1.2/feeder";
         if(type.equals("view logs")){
             home_url += "/home/logs";
             try {
@@ -83,6 +79,8 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     protected void onPostExecute(String result) {
         alertDialog.setMessage(result);
         alertDialog.show();
+        delegate.processFinish(result);
+
     }
 
     @Override
