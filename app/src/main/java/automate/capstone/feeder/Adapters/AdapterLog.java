@@ -46,6 +46,7 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DataLog current = data.get(position);
         myHolder.tvLogInfo.setText(current.loginfo);
         myHolder.tvLogType.setText(current.logtype);
+
     }
 
     @Override

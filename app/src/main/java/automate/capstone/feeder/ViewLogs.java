@@ -36,20 +36,20 @@ public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DatabaseHelper dh = new DatabaseHelper(this);
-    TextView test;
+    TextView tv_log_title,tv_log_info;
     ListView listView;
     ProgressDialog pDialog;
     private RecyclerView recyclerLog;
     private AdapterLog adapterLog;
     LinearLayoutManager layoutManager;
     Button btn_logs;
-
+    List<DataLog> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_logs);
         //Make call to AsyncTask
-        List<DataLog> data = new ArrayList<>();
+        data = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(Store.logs);
 
@@ -167,9 +167,15 @@ public class ViewLogs extends AppCompatActivity
 
     public void bayagbus(View view) {
 
+        tv_log_info = (TextView) findViewById(R.id.tv_log_info);
+        tv_log_title = (TextView) findViewById(R.id.tv_log_type);
 
+        final int position = listView.getPositionForView((View) view.getParent());
+
+
+        //DataLog v = data.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getText(r.fintv_log_type))
+        builder.setMessage(position)
                 .setCancelable(true)
                 .setTitle("More Info")
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
