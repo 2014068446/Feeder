@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,39 +29,68 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.widget.Toast.LENGTH_LONG;
 
 public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DatabaseHelper dh = new DatabaseHelper(this);
-    JSONObject jsonObject;
-    JSONArray jsonArray;
     TextView test;
     ListView listView;
     ProgressDialog pDialog;
+    private RecyclerView recyclerLog;
+    private AdapterLog adapterLog;
+    LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_logs);
-
+        //Make call to AsyncTask
+String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test loginfo\",\"date_add\":\"2018-01-30 07:16:34\"},{\"id_logs\":\"2\",\"log_type\":\"log test 2\",\"log_info\":\"log test description 2\",\"date_add\":\"2018-01-30 09:34:35\"}]";
+        List<DataLog> data = new ArrayList<>();
         try {
-            JSONObject obj = new JSONObject(Store.logs);
-            JSONArray logss = obj.getJSONArray("logs");
+            JSONArray jsonArray = new JSONArray(asd);
+
             String stor3 ="";
-            for(int i = 0; i < logss.length();i++) {
-                JSONObject innerObj = logss.getJSONObject(i);
-                for(Iterator it = innerObj.keys(); it.hasNext(); ) {
-                    String key = (String)it.next();
-                    System.out.println(key + ":" + innerObj.get(key));
-                }
+            for(int i = 0;i<=jsonArray.length();i++){
+                JSONObject json_data = jsonArray.getJSONObject(i);
+                DataLog dataLog = new DataLog();
+                dataLog.logtype= json_data.getString("log_info");
+                dataLog.loginfo= json_data.getString("log_type");
+                data.add(dataLog);
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        listView = (ListView) findViewById(R.id.listview);
-        Toast.makeText(this,Store.logs,LENGTH_LONG).show();
+        recyclerLog = (RecyclerView) findViewById(R.id.recyclerlog);
+        adapterLog = new AdapterLog(ViewLogs.this, data);
+
+        recyclerLog.setAdapter(adapterLog);
+        recyclerLog.setLayoutManager(new LinearLayoutManager(ViewLogs.this));
+
+        //Toast.makeText(this,asd,LENGTH_LONG).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

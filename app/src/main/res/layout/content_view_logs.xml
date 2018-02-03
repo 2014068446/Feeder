@@ -9,11 +9,10 @@
     tools:context="automate.capstone.feeder.ViewLogs"
     tools:showIn="@layout/app_bar_view_logs">
 
-    <ListView
-        android:id="@+id/listview"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:visibility="visible" />
+        android:id="@+id/recyclerlog"
+    />
 
 </RelativeLayout>

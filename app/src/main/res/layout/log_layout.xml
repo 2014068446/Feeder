@@ -8,6 +8,7 @@
         android:layout_alignParentLeft="true"
         android:text="Test"
         android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
         android:textAppearance="?android:textAppearanceLarge"
 
         />
@@ -17,6 +18,7 @@
         android:id="@+id/tv_log_info"
         android:layout_alignParentLeft="true"
         android:text="Test"
+        android:textColor="@color/colorAccent"
         android:gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceSmall"
 
