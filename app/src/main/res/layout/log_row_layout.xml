@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="automate.capstone.feeder.ViewLogs"
+    tools:showIn="@layout/app_bar_view_logs">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_log_type"
+        android:text="Type"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+
+        />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_log_info"
+        android:text="Info"
+        android:textColor="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_below="@+id/tv_log_type"
+        android:layout_alignLeft="@+id/tv_log_type"
+        android:layout_marginTop="5dp"
+
+
+        />
+
+    <Button
+        android:id="@+id/btn_log"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/ic_menu_more"
+        android:onClick="bayagbus" />
+
+
+</RelativeLayout>

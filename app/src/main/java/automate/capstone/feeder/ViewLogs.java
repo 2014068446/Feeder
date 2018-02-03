@@ -1,12 +1,12 @@
 package automate.capstone.feeder;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,41 +15,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import static android.widget.Toast.LENGTH_LONG;
+import automate.capstone.feeder.Adapters.AdapterLog;
+import automate.capstone.feeder.Fragments.DatePickerFragment;
 
 public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,19 +42,19 @@ public class ViewLogs extends AppCompatActivity
     private RecyclerView recyclerLog;
     private AdapterLog adapterLog;
     LinearLayoutManager layoutManager;
+    Button btn_logs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_logs);
         //Make call to AsyncTask
-String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test loginfo\",\"date_add\":\"2018-01-30 07:16:34\"},{\"id_logs\":\"2\",\"log_type\":\"log test 2\",\"log_info\":\"log test description 2\",\"date_add\":\"2018-01-30 09:34:35\"}]";
         List<DataLog> data = new ArrayList<>();
         try {
-            JSONArray jsonArray = new JSONArray(asd);
+            JSONArray jsonArray = new JSONArray(Store.logs);
 
             String stor3 ="";
-            for(int i = 0;i<=jsonArray.length();i++){
+            for(int i = 0;i<jsonArray.length();i++){
                 JSONObject json_data = jsonArray.getJSONObject(i);
                 DataLog dataLog = new DataLog();
                 dataLog.logtype= json_data.getString("log_info");
@@ -102,6 +83,25 @@ String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test logi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+        btn_logs = (Button) findViewById(R.id.btn_log);
+        //View More Log
+        btn_logs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog alertDialog = new AlertDialog.Builder(ViewLogs.this).create();
+                alertDialog.setTitle("Alert");
+                alertDialog.setMessage("Alert message to be shown");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });*/
     }
 
     @Override
@@ -164,5 +164,22 @@ String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test logi
         return true;
     }
 
+
+    public void bayagbus(View view) {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getText(r.fintv_log_type))
+                .setCancelable(true)
+                .setTitle("More Info")
+                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create().show();
+
+    }
 
 }

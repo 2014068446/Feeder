@@ -20,11 +20,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Calendar;
+
+import automate.capstone.feeder.Fragments.DatePickerFragment;
+import automate.capstone.feeder.Fragments.TimePickerFragment;
 
 public class AutomaticMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {

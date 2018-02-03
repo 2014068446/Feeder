@@ -31,7 +31,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String home_url="http://192.168.1.2/feeder";
+        String home_url="http://192.168.0.37/feeder";
         if(type.equals("view logs")){
             home_url += "/home/logs";
             try {
@@ -71,16 +71,12 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("View Logs");
+
     }
 
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
-        delegate.processFinish(result);
-
+        Store.logs = result;
     }
 
     @Override

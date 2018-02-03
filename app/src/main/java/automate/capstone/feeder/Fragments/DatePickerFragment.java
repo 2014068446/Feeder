@@ -1,4 +1,4 @@
-package automate.capstone.feeder;
+package automate.capstone.feeder.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

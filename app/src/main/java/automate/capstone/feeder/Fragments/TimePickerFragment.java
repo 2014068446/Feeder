@@ -1,4 +1,4 @@
-package automate.capstone.feeder;
+package automate.capstone.feeder.Fragments;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

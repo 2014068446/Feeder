@@ -1,4 +1,4 @@
-package automate.capstone.feeder;
+package automate.capstone.feeder.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import automate.capstone.feeder.DataLog;
+import automate.capstone.feeder.R;
 
 /**
  * Created by Donnald on 2/3/2018.
@@ -32,7 +34,7 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // Inflate the layout when viewholder created
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.log_layout, parent,false);
+        View view = inflater.inflate(R.layout.log_row_layout, parent,false);
         MyHolder holder = new MyHolder(view);
         return holder;
     }
