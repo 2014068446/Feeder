@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
@@ -50,10 +49,10 @@ public class ViewLogs extends AppCompatActivity
         setContentView(R.layout.activity_view_logs);
         //Make call to AsyncTask
         data = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(Store.logs);
 
-            String stor3 ="";
+        String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test loginfo\",\"date_add\":\"2018-01-30 07:16:34\"},{\"id_logs\":\"2\",\"log_type\":\"log test 2\",\"log_info\":\"log test description 2\",\"date_add\":\"2018-01-30 09:34:35\"}]";
+        try {
+            JSONArray jsonArray = new JSONArray(asd); //Store.logs when connecting to db
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject json_data = jsonArray.getJSONObject(i);
                 DataLog dataLog = new DataLog();
@@ -61,7 +60,6 @@ public class ViewLogs extends AppCompatActivity
                 dataLog.loginfo= json_data.getString("log_type");
                 data.add(dataLog);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,7 +69,6 @@ public class ViewLogs extends AppCompatActivity
         recyclerLog.setAdapter(adapterLog);
         recyclerLog.setLayoutManager(new LinearLayoutManager(ViewLogs.this));
 
-        //Toast.makeText(this,asd,LENGTH_LONG).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -165,17 +162,12 @@ public class ViewLogs extends AppCompatActivity
     }
 
 
-    public void bayagbus(View view) {
-
+    public void LogDialog(View view) {
         tv_log_info = (TextView) findViewById(R.id.tv_log_info);
         tv_log_title = (TextView) findViewById(R.id.tv_log_type);
-
-        final int position = listView.getPositionForView((View) view.getParent());
-
-
         //DataLog v = data.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(position)
+        builder.setMessage("asd")
                 .setCancelable(true)
                 .setTitle("More Info")
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -185,7 +177,5 @@ public class ViewLogs extends AppCompatActivity
                     }
                 });
         builder.create().show();
-
     }
-
 }
