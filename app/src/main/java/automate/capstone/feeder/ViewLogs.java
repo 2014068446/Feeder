@@ -29,7 +29,7 @@ import java.util.List;
 import android.support.v7.widget.LinearLayoutManager;
 
 import automate.capstone.feeder.Adapters.AdapterLog;
-import automate.capstone.feeder.Fragments.DatePickerFragment;
+import automate.capstone.feeder.DataRecycler.DataLog;
 
 public class ViewLogs extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

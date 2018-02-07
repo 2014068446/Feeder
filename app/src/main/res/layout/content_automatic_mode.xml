@@ -124,35 +124,14 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tv_sampletime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Sample time"
-        android:textColor="@android:color/background_dark"
-        android:layout_below="@+id/tv_schedule"
-        android:layout_toStartOf="@+id/btn_sampletime" />
-
-    <Button
-        android:id="@+id/btn_sampletime"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/tv_sampletime"
-        android:layout_alignBottom="@+id/tv_sampletime"
-        android:layout_toStartOf="@+id/spnr_duration"
-        android:background="@android:drawable/ic_menu_edit"
-        android:text="Button" />
-
-    <TextView
         android:id="@+id/tv_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_schedule"
-        android:layout_below="@+id/btn_sampletime"
-        android:layout_marginTop="41dp"
         android:text="Enter Feed"
         android:textColor="@android:color/background_dark"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/et_feeds"
+        android:layout_toStartOf="@+id/btn_time" />
 
     <EditText
         android:id="@+id/et_feeds"
@@ -162,8 +141,9 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@android:color/background_dark"
-        android:layout_alignBottom="@+id/tv_feed"
-        android:layout_alignStart="@+id/btn_time" />
+        android:layout_above="@+id/button8"
+        android:layout_toEndOf="@+id/tv_feed"
+        android:layout_marginBottom="15dp" />
 
     <Spinner
         android:id="@+id/spnr_unit"
@@ -171,8 +151,8 @@
         android:layout_height="40dp"
         android:background="?attr/colorButtonNormal"
         android:entries="@array/measure_key"
-        android:layout_alignTop="@+id/et_feeds"
-        android:layout_toEndOf="@+id/et_feeds" />
+        android:layout_alignBottom="@+id/et_feeds"
+        android:layout_toEndOf="@+id/button8" />
 
     <Button
         android:id="@+id/button8"
@@ -183,6 +163,13 @@
         android:layout_marginBottom="18dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/btn_time" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="300dp"
+        android:id="@+id/recycler_automatic_mode"
+        android:layout_height="100dp"
+        android:layout_below="@+id/tv_schedule"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

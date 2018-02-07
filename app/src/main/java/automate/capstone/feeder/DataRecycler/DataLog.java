@@ -1,4 +1,4 @@
-package automate.capstone.feeder;
+package automate.capstone.feeder.DataRecycler;
 
 /**
  * Created by Donnald on 2/3/2018.

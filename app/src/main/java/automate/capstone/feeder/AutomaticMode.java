@@ -5,6 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,8 +25,14 @@ import android.widget.TimePicker;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import automate.capstone.feeder.Adapters.AdapterAutomaticMode;
+import automate.capstone.feeder.Adapters.AdapterSchedule;
+import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
+import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
 
@@ -37,6 +46,9 @@ public class AutomaticMode extends AppCompatActivity
     TextView tvTime;
     TextView tv_schedule_name;
     TextView tv_feed;
+    private AdapterAutomaticMode adapterAutomaticMode;
+    private RecyclerView recyclerSchedule;
+    List<DataAutomaticRecycler> data;
     DatabaseHelper dh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,16 @@ public class AutomaticMode extends AppCompatActivity
         setContentView(R.layout.activity_automatic_mode);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        data = new ArrayList<>();
         tv_schedule_name = (TextView) findViewById(R.id.tv_schedule_name);
         tv_feed = (TextView) findViewById(R.id.tv_feed);
         btnTime = (Button) findViewById(R.id.btn_time);
@@ -77,21 +99,28 @@ public class AutomaticMode extends AppCompatActivity
                 R.array.duration_key, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnrDuration.setAdapter(adapter);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        tvTime = (TextView) findViewById(R.id.tv_time_desc);
-        tvTime.setText(hourOfDay + " : " + minute);
+        if (view.isShown()) {
+            DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
+
+            adapterAutomaticMode =  new AdapterAutomaticMode(AutomaticMode.this,data);
+
+            recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_automatic_mode);
+            recyclerSchedule.setAdapter(adapterAutomaticMode);
+            recyclerSchedule.setLayoutManager(new LinearLayoutManager(AutomaticMode.this));
+            dataTime.time = String.format("%02d:%02d", hourOfDay, minute);
+            //
+            if (data.contains(dataTime.time)) {
+                Log.d("Schedule Error:", "Naulit ang paglagay ng oras. Ito ay ipinagbabawal.");
+            }
+            else{
+                data.add(dataTime);
+                adapterAutomaticMode.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override

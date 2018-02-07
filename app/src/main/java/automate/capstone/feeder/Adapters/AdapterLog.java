@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-import automate.capstone.feeder.DataLog;
+import automate.capstone.feeder.DataRecycler.DataLog;
 import automate.capstone.feeder.R;
 
 /**
@@ -23,7 +23,7 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater inflater;
     List<DataLog> data = Collections.emptyList();
     DataLog current;
-    int currentPos = 0;
+    //int currentPos = 0;
 
     // create constructor to initilize context and data sent from MainActivity
     public AdapterLog(Context context, List<DataLog> data) {
@@ -43,10 +43,9 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     // Get current position of item in recyclerview to bind data and assign values from list
         MyHolder myHolder = (MyHolder) holder;
-        DataLog current = data.get(position);
+        current = data.get(position);
         myHolder.tvLogInfo.setText(current.loginfo);
         myHolder.tvLogType.setText(current.logtype);
-
     }
 
     @Override
