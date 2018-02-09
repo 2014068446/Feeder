@@ -41,9 +41,8 @@ import automate.capstone.feeder.Fragments.TimePickerFragment;
 public class AutomaticMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     Spinner spnrDuration, spnrMeasure;
-    Button btnStartDate, btnTime , btnTest;
+    Button btnStartDate, btnTime;
     TextView tvStartDate, tv_schedule_name, tv_feed;
-    EditText etIPAddress;
 
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;

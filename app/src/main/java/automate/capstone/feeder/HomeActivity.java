@@ -14,14 +14,61 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    Button btnTest, btnAutomatic, btnManual, btnViewLogs;
+    EditText etIP_Address;
+    String rpi_ip_address;
+    Boolean connection;
+    NavigationView navigationView;
+    Menu menu_nav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        connection = false;
+        btnAutomatic = (Button) findViewById(R.id.btn_Automatic);
+        btnManual = (Button) findViewById(R.id.btn_Manual);
+        btnViewLogs = (Button) findViewById(R.id.btn_Logs);
+
+        btnAutomatic.setEnabled(false);
+        btnManual.setEnabled(false);
+        btnViewLogs.setEnabled(false);
+
+        btnTest = (Button) findViewById(R.id.btn_test_ip_address);
+        etIP_Address = (EditText) findViewById(R.id.et_ip_address);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        menu_nav = navigationView.getMenu();
+        menu_nav.setGroupEnabled(R.id.nav_group,false);
+
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rpi_ip_address = etIP_Address.getText().toString();
+                if (rpi_ip_address.equals("192.168.1.1")) {
+                    connection = true;
+                    // do connection between rpi and phone here
+                    if(connection) {
+                        btnAutomatic.setEnabled(true);
+                        btnManual.setEnabled(true);
+                        btnViewLogs.setEnabled(true);
+                        menu_nav.setGroupEnabled(R.id.nav_group,true);
+                        Toast.makeText(HomeActivity.this, rpi_ip_address + " : Connection Success!", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    btnAutomatic.setEnabled(false);
+                    btnManual.setEnabled(false);
+                    btnViewLogs.setEnabled(false);
+                    menu_nav.setGroupEnabled(R.id.nav_group,false);
+                    Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,9 +78,6 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -66,13 +110,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -83,7 +120,6 @@ public class HomeActivity extends AppCompatActivity
             Intent goToSettings = new Intent(this,Settings.class);
             startActivity(goToSettings);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
