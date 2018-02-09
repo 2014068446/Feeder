@@ -18,15 +18,6 @@
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:background="@drawable/ic_menu_manage"
-        android:layout_alignBottom="@+id/view"
         android:layout_toEndOf="@+id/tv_time_automatic_sched_recycler" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_alignBottom="@+id/tv_time_automatic_sched_recycler"
-        android:layout_height="1px"
-        android:background="@android:color/black"
-        android:id="@+id/view" />
-
 
 </RelativeLayout>
