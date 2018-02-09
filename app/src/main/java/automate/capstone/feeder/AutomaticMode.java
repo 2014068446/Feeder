@@ -43,7 +43,6 @@ public class AutomaticMode extends AppCompatActivity
     Button btnStartDate;
     Button btnTime;
     TextView tvStartDate;
-    TextView tvTime;
     TextView tv_schedule_name;
     TextView tv_feed;
     private AdapterAutomaticMode adapterAutomaticMode;

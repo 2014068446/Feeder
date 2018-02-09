@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="automate.capstone.feeder.AutomaticMode"
     tools:showIn="@layout/app_bar_automatic_mode">
@@ -18,7 +17,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="43dp"
         android:text="Schedule Name:"
-        android:textColor="@android:color/background_dark"
         android:textSize="25sp" />
     <EditText
         android:id="@+id/et_schedule_name"
@@ -30,7 +28,7 @@
         android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@android:color/background_dark" />
+        />
 
     <TextView
         android:id="@+id/tv_start_date"
@@ -40,7 +38,6 @@
         android:layout_below="@+id/et_schedule_name"
         android:layout_marginTop="15dp"
         android:text="Start Date"
-        android:textColor="@android:color/background_dark"
         android:textSize="20sp" />
 
     <TextView
@@ -52,7 +49,6 @@
         android:layout_alignStart="@+id/et_schedule_name"
         android:layout_marginStart="44dp"
         android:text="Duration"
-        android:textColor="@android:color/background_dark"
         android:textSize="20sp" />
 
     <TextView
@@ -62,8 +58,7 @@
         android:layout_alignBaseline="@+id/btn_start_date"
         android:layout_alignBottom="@+id/btn_start_date"
         android:layout_alignStart="@+id/tv_start_date"
-        android:text="Tap to set date"
-        android:textColor="@android:color/background_dark" />
+        android:text="Tap to set date" />
 
     <Button
         android:id="@+id/btn_start_date"
@@ -81,7 +76,7 @@
         android:layout_alignTop="@+id/tv_start_date_desc"
         android:background="?attr/colorButtonNormal"
         android:entries="@array/duration_key"
-        android:textColor="@android:color/holo_blue_bright" />
+        />
 
     <TextView
         android:id="@+id/tv_time"
@@ -90,7 +85,6 @@
         android:layout_alignStart="@+id/tv_start_date_desc"
         android:layout_below="@+id/spnr_duration"
         android:text="Time:"
-        android:textColor="@android:color/background_dark"
         android:textSize="20sp" />
 
     <TextView
@@ -101,7 +95,7 @@
         android:layout_below="@+id/tv_time"
         android:layout_marginTop="11dp"
         android:text="Tap to add time"
-        android:textColor="@android:color/background_dark" />
+        />
 
     <Button
         android:id="@+id/btn_time"
@@ -111,7 +105,7 @@
         android:layout_alignBottom="@+id/tv_time_desc"
         android:layout_toEndOf="@+id/tv_time_desc"
         android:background="@android:drawable/ic_menu_recent_history"
-        android:text="Button" />
+        android:text="" />
 
     <TextView
         android:id="@+id/tv_schedule"
@@ -120,7 +114,6 @@
         android:layout_alignStart="@+id/tv_time_desc"
         android:layout_centerVertical="true"
         android:text="Schedule"
-        android:textColor="@android:color/background_dark"
         android:textSize="20sp" />
 
     <TextView
@@ -128,7 +121,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter Feed"
-        android:textColor="@android:color/background_dark"
         android:textSize="20sp"
         android:layout_alignTop="@+id/et_feeds"
         android:layout_toStartOf="@+id/btn_time" />
@@ -137,10 +129,8 @@
         android:id="@+id/et_feeds"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textColor="@android:color/background_dark"
         android:layout_above="@+id/button8"
         android:layout_toEndOf="@+id/tv_feed"
         android:layout_marginBottom="15dp" />

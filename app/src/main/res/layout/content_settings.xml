@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="automate.capstone.feeder.Settings"
     tools:showIn="@layout/app_bar_settings">
@@ -31,7 +30,6 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="39dp"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
         android:layout_toStartOf="@+id/toggle_notifsms"
         android:text="SMS Notification" />
 
@@ -42,16 +40,6 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="20dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
         android:text="Include:" />
 
     <CheckBox
@@ -61,9 +49,7 @@
         android:layout_marginTop="13dp"
         android:text="System Logs (e.g. Feeding Activities)"
         android:layout_below="@+id/textView4"
-        android:textColor="@android:color/black"
         android:onClick="checkBoxNotif"
-        android:buttonTint="@android:color/black"
         android:layout_alignStart="@+id/textView4" />
 
     <CheckBox
@@ -73,8 +59,6 @@
         android:onClick="checkBoxNotif"
         android:layout_alignStart="@+id/cb_sysnotif"
         android:layout_below="@+id/cb_sysnotif"
-        android:buttonTint="@android:color/black"
-        android:textColor="@android:color/black"
         android:text="User Logs (e.g. Update Schedule)" />
 
     <TextView
@@ -84,7 +68,6 @@
         android:layout_alignStart="@+id/cb_usernotif"
         android:layout_centerVertical="true"
         android:textSize="20sp"
-        android:textColor="@android:color/black"
         android:text="Notify Container Status at:" />
 
     <SeekBar
@@ -93,8 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView7"
-        android:thumbTint="@android:color/black"
-        android:progressTint="@android:color/black"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="25dp"
         android:max="10"
@@ -107,7 +88,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/sb_notif"
         android:layout_toEndOf="@+id/sb_notif"
-        android:textColor="@android:color/black"
         android:text="30%" />
 
 </RelativeLayout>
