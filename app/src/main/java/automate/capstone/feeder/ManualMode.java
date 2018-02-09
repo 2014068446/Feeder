@@ -82,23 +82,7 @@ public class ManualMode extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_auto) {
-            Intent intent = new Intent(this, AutomaticMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_man) {
-            Intent intent = new Intent(this, ManualMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_logs) {
-            Intent intent = new Intent(this, ViewLogs.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_schedule) {
-            Intent intent = new Intent(this, ViewScheduleList.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
-        }
+        new NavigationItemSelect(this,id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

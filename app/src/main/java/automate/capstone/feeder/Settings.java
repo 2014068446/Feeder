@@ -14,17 +14,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Settings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ToggleButton tbNotif;
+    Button btnSubmitSetting;
     SeekBar sbNotif;
     TextView tvPercentage;
+
+    //variables to be passed
+    Boolean notif , user_notif, sys_notif;
+    int container_progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +52,12 @@ public class Settings extends AppCompatActivity
         sbNotif = (SeekBar) findViewById(R.id.sb_notif);
         tvPercentage = (TextView) findViewById(R.id.tv_percentage_container);
         sbNotif.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            //checks the amount of container (ranging from 0-10)
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d("ADebugTag", Integer.toString(progress));
-                tvPercentage.setText(Integer.toString(progress)+"0%");
+                container_progress = progress;
+                tvPercentage.setText(container_progress + "0%");
             }
 
             @Override
@@ -63,14 +73,51 @@ public class Settings extends AppCompatActivity
 
         tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
         tbNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            //  enable/disable notification
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.d("ADebugTag", "true");
+                    notif = true;
+                    Log.d("ADebugTag", notif.toString());
                 } else {
-                    Log.d("ADebugTag", "false");
+                    notif = false;
+                    Log.d("ADebugTag", notif.toString());
                 }
             }
         });
+
+        btnSubmitSetting = (Button) findViewById(R.id.btn_submit_settings);
+    }
+
+    public void checkBoxNotif(View view) {
+        //checks the activity between two checkboxes
+        boolean checked = ((CheckBox) view).isChecked();
+        switch (view.getId()) {
+            case R.id.cb_sysnotif:
+                if (checked){
+                    sys_notif = true;
+                    Log.d("ADebugTag", "System Notif = " + sys_notif);
+                }
+                else{
+                    sys_notif = false;
+                    Log.d("ADebugTag", "System Notif = " + sys_notif);
+                }
+                break;
+            case R.id.cb_usernotif:
+                if (checked){
+                    user_notif = true;
+                    Log.d("ADebugTag", "User Notif = " + user_notif);
+                }
+                else{
+                    user_notif = false;
+                    Log.d("ADebugTag", "User Notif = " + user_notif);
+                }
+                break;
+        }
+    }
+
+    public void saveConfig(View view) {
+        //do process when submitting config to RPI
+        Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -110,45 +157,11 @@ public class Settings extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_auto) {
-            Intent intent = new Intent(this, AutomaticMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_man) {
-            Intent intent = new Intent(this, ManualMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_logs) {
-            Intent intent = new Intent(this, ViewLogs.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_schedule) {
-            Intent intent = new Intent(this, ViewScheduleList.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
-        }
+        new NavigationItemSelect(this,id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void checkBoxNotif(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-        switch (view.getId()) {
-            case R.id.cb_sysnotif:
-                if (checked)
-                    Log.d("ADebugTag", "System Notif = true");
-            else
-                    Log.d("ADebugTag", "System Notif = false");
-                break;
-            case R.id.cb_usernotif:
-                if (checked)
-                    Log.d("ADebugTag", "User Notif = true");
-            else
-                    Log.d("ADebugTag", "User Notif = false");
-                break;
-        }
     }
 
 }
