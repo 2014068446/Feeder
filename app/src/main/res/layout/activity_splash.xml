@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#98fb98"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     tools:context="automate.capstone.feeder.SplashActivity">
 
@@ -20,18 +20,10 @@
         android:text="Scheduler App"
         android:fontFamily="sans-serif-condensed"
         android:textSize="50dp"
+        android:textColor="@android:color/white"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:id="@+id/tv_ContainerStatus" />
-
-    <pl.droidsonroids.gif.GifTextView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_below="@+id/tv_ContainerStatus"
-        android:layout_marginTop="11dp"
-        android:src="@drawable/facebook"
-        android:visibility="visible" />
 
 </RelativeLayout>
