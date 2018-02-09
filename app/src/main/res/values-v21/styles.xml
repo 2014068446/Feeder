@@ -2,4 +2,8 @@
 <resources>
 
     <style name="Theme.AppTheme.NoActionBar.TranslucentDecor" parent="android:Theme.Material.NoActionBar.TranslucentDecor" />
+
+    <style name="hh" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="eqeqweqe" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
