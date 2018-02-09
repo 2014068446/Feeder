@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="19dp"
         android:text="Schedule Name:"
         android:textSize="25sp" />
     <EditText
@@ -82,7 +82,7 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_start_date_desc"
+        android:layout_alignStart="@+id/tv_time_desc"
         android:layout_below="@+id/spnr_duration"
         android:text="Time:"
         android:textSize="20sp" />
@@ -91,18 +91,17 @@
         android:id="@+id/tv_time_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_time"
-        android:layout_below="@+id/tv_time"
-        android:layout_marginTop="11dp"
-        android:text="Tap to add time"
-        />
+        android:layout_alignStart="@+id/tv_start_date_desc"
+        android:layout_below="@+id/spnr_duration"
+        android:layout_marginTop="33dp"
+        android:text="Tap to add time" />
 
     <Button
         android:id="@+id/btn_time"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/tv_time_desc"
-        android:layout_alignBottom="@+id/tv_time_desc"
+
+        android:layout_alignTop="@+id/tv_time_desc"
         android:layout_toEndOf="@+id/tv_time_desc"
         android:background="@android:drawable/ic_menu_recent_history"
         android:text="" />
@@ -112,7 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tv_time_desc"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/btn_time"
+        android:layout_marginTop="13dp"
         android:text="Schedule"
         android:textSize="20sp" />
 
@@ -120,39 +120,40 @@
         android:id="@+id/tv_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/spnr_unit"
+        android:layout_toStartOf="@+id/et_feeds"
         android:text="Enter Feed"
-        android:textSize="20sp"
-        android:layout_alignTop="@+id/et_feeds"
-        android:layout_toStartOf="@+id/btn_time" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/et_feeds"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_automatic_mode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_above="@+id/button8"
-        android:layout_toEndOf="@+id/tv_feed"
-        android:layout_marginBottom="15dp" />
+        android:inputType="textPersonName" />
 
     <Spinner
         android:id="@+id/spnr_unit"
         android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:background="?attr/colorButtonNormal"
-        android:entries="@array/measure_key"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/et_feeds"
         android:layout_alignBottom="@+id/et_feeds"
-        android:layout_toEndOf="@+id/button8" />
+        android:layout_toEndOf="@+id/et_feeds"
+        android:background="?attr/colorButtonNormal"
+        android:entries="@array/measure_key" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:layout_below="@+id/et_feeds"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
         android:onClick="saveLog"
-        android:layout_marginBottom="18dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/btn_time" />
+        android:text="Save" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="300dp"

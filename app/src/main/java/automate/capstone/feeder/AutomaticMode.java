@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -38,13 +40,11 @@ import automate.capstone.feeder.Fragments.TimePickerFragment;
 
 public class AutomaticMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    Spinner spnrDuration;
-    Spinner spnrMeasure;
-    Button btnStartDate;
-    Button btnTime;
-    TextView tvStartDate;
-    TextView tv_schedule_name;
-    TextView tv_feed;
+    Spinner spnrDuration, spnrMeasure;
+    Button btnStartDate, btnTime , btnTest;
+    TextView tvStartDate, tv_schedule_name, tv_feed;
+    EditText etIPAddress;
+
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;
     List<DataAutomaticRecycler> data;
@@ -145,6 +145,12 @@ public class AutomaticMode extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -153,7 +159,8 @@ public class AutomaticMode extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent goToSettings = new Intent(this,Settings.class);
+            startActivity(goToSettings);
         }
 
         return super.onOptionsItemSelected(item);

@@ -81,7 +81,8 @@ public class ViewScheduleList extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent goToSettings = new Intent(this,Settings.class);
+            startActivity(goToSettings);
         }
 
         return super.onOptionsItemSelected(item);
