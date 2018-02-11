@@ -8,16 +8,12 @@ import android.os.Bundle;
 public class SplashActivity extends AppCompatActivity implements AsyncResponse {
     private static int SPLASH_TIME_OUT = 1000; //4 seconds
     DatabaseHelper dh = new DatabaseHelper(this);
-    String logs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        DatabaseHelper dh = new DatabaseHelper(this);
-        String type="view logs";
-        dh.execute(type,null,null);
-        dh.delegate = this;
-        logs = dh.delegate.toString();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

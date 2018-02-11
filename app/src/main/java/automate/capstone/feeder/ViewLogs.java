@@ -32,7 +32,7 @@ import automate.capstone.feeder.Adapters.AdapterLog;
 import automate.capstone.feeder.DataRecycler.DataLog;
 
 public class ViewLogs extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
     DatabaseHelper dh = new DatabaseHelper(this);
     TextView tv_log_title,tv_log_info;
@@ -49,10 +49,9 @@ public class ViewLogs extends AppCompatActivity
         setContentView(R.layout.activity_view_logs);
         //Make call to AsyncTask
         data = new ArrayList<>();
-
-        String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test loginfo\",\"date_add\":\"2018-01-30 07:16:34\"},{\"id_logs\":\"2\",\"log_type\":\"log test 2\",\"log_info\":\"log test description 2\",\"date_add\":\"2018-01-30 09:34:35\"}]";
+        //String asd = "[{\"id_logs\":\"1\",\"log_type\":\"test\",\"log_info\":\"test loginfo\",\"date_add\":\"2018-01-30 07:16:34\"},{\"id_logs\":\"2\",\"log_type\":\"log test 2\",\"log_info\":\"log test description 2\",\"date_add\":\"2018-01-30 09:34:35\"}]";
         try {
-            JSONArray jsonArray = new JSONArray(asd); //Store.logs when connecting to db
+            JSONArray jsonArray = new JSONArray(Store.logs); //Store.logs when connecting to db
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject json_data = jsonArray.getJSONObject(i);
                 DataLog dataLog = new DataLog();
@@ -162,5 +161,10 @@ public class ViewLogs extends AppCompatActivity
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void processFinish(String output) {
+
     }
 }

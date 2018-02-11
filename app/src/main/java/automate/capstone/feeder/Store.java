@@ -5,5 +5,7 @@ package automate.capstone.feeder;
  */
 
 public class Store {
-    public static String logs;
+    public static String logs=null;
+    public static boolean finished=false;
+    public static String ip_address;
 }

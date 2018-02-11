@@ -18,17 +18,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
     Button btnTest, btnAutomatic, btnManual, btnViewLogs;
     EditText etIP_Address;
     String rpi_ip_address;
     Boolean connection;
     NavigationView navigationView;
     Menu menu_nav;
+    String logs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        final DatabaseHelper dh = new DatabaseHelper(this);
         connection = false;
         btnAutomatic = (Button) findViewById(R.id.btn_Automatic);
         btnManual = (Button) findViewById(R.id.btn_Manual);
@@ -50,23 +52,29 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 rpi_ip_address = etIP_Address.getText().toString();
-                if (rpi_ip_address.equals("192.168.1.1")) {
-                    connection = true;
-                    // do connection between rpi and phone here
-                    if(connection) {
+                Store.ip_address=rpi_ip_address;
+                DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
+                String type="view logs";
+                dh.execute(type);
+                dh.delegate = HomeActivity.this;
+                logs = dh.delegate.toString();
+                    try{
+                        Store.logs = dh.get().toString();
                         btnAutomatic.setEnabled(true);
                         btnManual.setEnabled(true);
                         btnViewLogs.setEnabled(true);
-                        menu_nav.setGroupEnabled(R.id.nav_group,true);
-                        Toast.makeText(HomeActivity.this, rpi_ip_address + " : Connection Success!", Toast.LENGTH_SHORT).show();
+                        menu_nav.setGroupEnabled(R.id.nav_group, true);
+                        Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                    }catch(Exception e){
+                        btnAutomatic.setEnabled(false);
+                        btnManual.setEnabled(false);
+                        btnViewLogs.setEnabled(false);
+                        menu_nav.setGroupEnabled(R.id.nav_group, false);
+                        Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    btnAutomatic.setEnabled(false);
-                    btnManual.setEnabled(false);
-                    btnViewLogs.setEnabled(false);
-                    menu_nav.setGroupEnabled(R.id.nav_group,false);
-                    Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
-                }
+
+
+
             }
         });
 
@@ -135,4 +143,8 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void processFinish(String output) {
+
+    }
 }
