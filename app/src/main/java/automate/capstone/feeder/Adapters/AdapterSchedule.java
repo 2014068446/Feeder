@@ -1,10 +1,13 @@
 package automate.capstone.feeder.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -40,8 +43,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         AdapterSchedule.MyHolder myHolder = (AdapterSchedule.MyHolder) holder;
         current = data.get(position);
-        myHolder.tvScheduleName.setText(current.schedname);
-        myHolder.tvScheduleInfo.setText(current.schedinfo);
+        myHolder.tvScheduleName.setText(current.sched_name);
+        myHolder.tvScheduleInfo.setText(current.start_date + " - " + current.end_date);
     }
 
     @Override
@@ -50,10 +53,29 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tvScheduleName;
         TextView tvScheduleInfo;
+        Button btnViewSchedInfo;
         public MyHolder(View itemView) {
             super(itemView);
+            btnViewSchedInfo = (Button) itemView.findViewById(R.id.btn_view_sched_info);
             tvScheduleName = (TextView) itemView.findViewById(R.id.tv_schedule_name_recycler);
             tvScheduleInfo = (TextView) itemView.findViewById(R.id.tv_schedule_info_recycler);
+
+            btnViewSchedInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(tvScheduleInfo.getText().toString())
+                            .setCancelable(true)
+                            .setTitle(tvScheduleName.getText().toString())
+                            .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
+            });
         }
     }
 }

@@ -14,7 +14,7 @@
         tools:text="asdasd" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_remove_time_schedule"
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:background="@drawable/ic_menu_manage"

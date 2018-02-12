@@ -65,8 +65,8 @@ public class ViewLogs extends AppCompatActivity
         recyclerLog = (RecyclerView) findViewById(R.id.recyclerlog);
         adapterLog = new AdapterLog(ViewLogs.this, data);
 
-        recyclerLog.setAdapter(adapterLog);
         recyclerLog.setLayoutManager(new LinearLayoutManager(ViewLogs.this));
+        recyclerLog.setAdapter(adapterLog);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -145,28 +145,6 @@ public class ViewLogs extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    public void LogDialog(View view) {
-        //button for each row in log view
-        tv_log_info = (TextView) findViewById(R.id.tv_log_info);
-        tv_log_title = (TextView) findViewById(R.id.tv_log_type);
-
-
-        int s = (int) recyclerLog.getChildItemId(view);
-        //DataLog v = data.get(position);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(s)
-                .setCancelable(true)
-                .setTitle("More Info")
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        builder.create().show();
     }
 
     @Override

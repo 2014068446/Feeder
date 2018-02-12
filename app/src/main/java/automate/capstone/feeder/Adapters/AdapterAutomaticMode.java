@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -17,16 +18,18 @@ import automate.capstone.feeder.R;
  * Created by Donnald on 2/7/2018.
  */
 
-public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
     List<DataAutomaticRecycler> data = Collections.emptyList();
     DataAutomaticRecycler current;
+    public Button removeTime;
 
     public AdapterAutomaticMode(Context context, List<DataAutomaticRecycler> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
+
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,12 +48,26 @@ public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {return data.size();}
 
+
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tvTime;
         public MyHolder(View itemView) {
             super(itemView);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time_automatic_sched_recycler);
+            removeTime = (Button) itemView.findViewById(R.id.btn_remove_time_schedule);
+            removeTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeAt(getAdapterPosition());
+                }
+            });
 
         }
+    }
+
+    public void removeAt(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
     }
 }

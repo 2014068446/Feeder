@@ -57,7 +57,7 @@ public class AutomaticMode extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automatic_mode);
-         dh = new DatabaseHelper(this);
+        dh = new DatabaseHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -186,10 +186,6 @@ public class AutomaticMode extends AppCompatActivity
         return true;
     }
     public void saveLog(View view) throws SQLException, JSONException, ExecutionException, InterruptedException {
-
-
-
-
         String scheduleName = et_schedule_name.getText().toString();
         String feed = et_feeds.getText().toString();
         String duration = spnrDuration.getSelectedItem().toString();

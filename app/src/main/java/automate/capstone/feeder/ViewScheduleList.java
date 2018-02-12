@@ -12,6 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +35,6 @@ public class ViewScheduleList extends AppCompatActivity
         setContentView(R.layout.activity_view_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,18 +43,30 @@ public class ViewScheduleList extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        String schedules= Store.schedules;
         data = new ArrayList<>();
-        DataSchedule dataSchedule = new DataSchedule();
-        dataSchedule.schedinfo="info";
-        dataSchedule.schedname="name";
-        data.add(dataSchedule);
+        try {
+            JSONArray jsonArray = new JSONArray(schedules); //Store.logs when connecting to db
+            for(int i = 0;i<jsonArray.length();i++){
+                JSONObject json_data = jsonArray.getJSONObject(i);
+                DataSchedule dataSched = new DataSchedule();
+                dataSched.sched_name = json_data.getString("schedule_name");
+                dataSched.start_date = json_data.getString("start_date");
+                dataSched.end_date = json_data.getString("end_date");
+                dataSched.date_added = json_data.getString("date_added");
+                dataSched.feed_amount = json_data.getString("feed_amount");
+                dataSched.id = json_data.getString("id");
+                data.add(dataSched);
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         adapterSchedule =  new AdapterSchedule(ViewScheduleList.this,data);
 
         recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_schedule);
-        recyclerSchedule.setAdapter(adapterSchedule);
         recyclerSchedule.setLayoutManager(new LinearLayoutManager(ViewScheduleList.this));
+        recyclerSchedule.setAdapter(adapterSchedule);
 
     }
 

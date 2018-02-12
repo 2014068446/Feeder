@@ -1,10 +1,13 @@
 package automate.capstone.feeder.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -56,11 +59,28 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tvLogType;
         TextView tvLogInfo;
+        Button btnViewInfo;
         public MyHolder(View itemView) {
             super(itemView);
             tvLogType = (TextView) itemView.findViewById(R.id.tv_log_type);
             tvLogInfo = (TextView) itemView.findViewById(R.id.tv_log_info);
+            btnViewInfo = (Button) itemView.findViewById(R.id.btn_log);
+            btnViewInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(tvLogInfo.getText().toString())
+                            .setCancelable(true)
+                            .setTitle(tvLogType.getText().toString())
+                            .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
+            });
         }
     }
-
 }
