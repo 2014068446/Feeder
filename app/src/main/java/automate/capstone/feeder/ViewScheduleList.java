@@ -32,7 +32,7 @@ public class ViewScheduleList extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_schedule);
+        setContentView(R.layout.activity_view_schedule_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,7 +55,7 @@ public class ViewScheduleList extends AppCompatActivity
                 dataSched.end_date = json_data.getString("end_date");
                 dataSched.date_added = json_data.getString("date_added");
                 dataSched.feed_amount = json_data.getString("feed_amount");
-                dataSched.id = json_data.getString("id");
+                dataSched.id = json_data.getString("id_automatic");
                 data.add(dataSched);
             }
         }catch (JSONException e) {
@@ -83,7 +83,7 @@ public class ViewScheduleList extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.view_schedule, menu);
+        getMenuInflater().inflate(R.menu.view_schedule_list, menu);
         return true;
     }
 

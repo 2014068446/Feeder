@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import automate.capstone.feeder.DataRecycler.DataSchedule;
@@ -44,7 +46,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
         AdapterSchedule.MyHolder myHolder = (AdapterSchedule.MyHolder) holder;
         current = data.get(position);
         myHolder.tvScheduleName.setText(current.sched_name);
-        myHolder.tvScheduleInfo.setText(current.start_date + " - " + current.end_date);
+        myHolder.tvScheduleInfo.setText(current.start_date+ " - " + current.end_date);
     }
 
     @Override

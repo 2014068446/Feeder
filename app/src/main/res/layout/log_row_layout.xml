@@ -12,24 +12,21 @@
         android:id="@+id/tv_log_info"
         android:text="Type"
         android:gravity="left"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
-
+        android:textSize="20dp"
         />
+
     <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="300dp"
         android:id="@+id/tv_log_type"
-        android:text="Info"
-        android:gravity="left"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:layout_below="@+id/tv_log_info"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tv_log_info"
+        android:layout_below="@+id/tv_log_info"
         android:layout_marginTop="5dp"
-
-
-        />
+        android:gravity="left"
+        android:text="Info"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_log"

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import java.util.concurrent.ExecutionException;
 
 public class SplashActivity extends AppCompatActivity implements AsyncResponse {
     private static int SPLASH_TIME_OUT = 1000; //4 seconds

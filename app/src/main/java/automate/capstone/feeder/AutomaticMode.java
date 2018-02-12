@@ -193,7 +193,8 @@ public class AutomaticMode extends AppCompatActivity
         String startdate = tvStartDate.getText().toString();
         String time="";
         String title = scheduleName+" has been created (Automatic Schedule)";
-        String log = "This schedule will serve "+feed+" "+measure+" every meal";
+        String log = feed+" "+measure;
+        //String log = "This schedule will serve "+feed+" "+measure+" every meal";
         for(DataAutomaticRecycler element: data){
             time+=element.time+",";
         }

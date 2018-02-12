@@ -69,9 +69,9 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage(tvLogInfo.getText().toString())
+                    builder.setMessage("This schedule will serve "+ tvLogType.getText().toString()+" every meal")
                             .setCancelable(true)
-                            .setTitle(tvLogType.getText().toString())
+                            .setTitle(tvLogInfo.getText().toString())
                             .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -83,4 +83,5 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         }
     }
+
 }

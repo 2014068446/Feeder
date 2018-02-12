@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         menu_nav = navigationView.getMenu();
         menu_nav.setGroupEnabled(R.id.nav_group,false);
-
+        Toast.makeText(this,Store.settings,Toast.LENGTH_LONG).show();
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,11 +56,10 @@ public class HomeActivity extends AppCompatActivity
                 DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
                 String type="view logs";
                 dh.execute(type);
-                dh.delegate = HomeActivity.this;
-                logs = dh.delegate.toString();
+
                     try{
                         Store.logs = dh.get().toString();
-                        btnAutomatic.setEnabled(true);
+                       btnAutomatic.setEnabled(true);
                         btnManual.setEnabled(true);
                         btnViewLogs.setEnabled(true);
                         menu_nav.setGroupEnabled(R.id.nav_group, true);

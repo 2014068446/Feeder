@@ -9,4 +9,5 @@ public class Store {
     public static boolean finished=false;
     public static String ip_address;
     public static String schedules=null;
+    public static String settings=null;
 }

@@ -22,6 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import automate.capstone.feeder.DataRecycler.DataLog;
+
 public class Settings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ToggleButton tbNotif;
@@ -48,9 +54,26 @@ public class Settings extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
 
         sbNotif = (SeekBar) findViewById(R.id.sb_notif);
         tvPercentage = (TextView) findViewById(R.id.tv_percentage_container);
+        try {
+            JSONArray jsonArray = new JSONArray(Store.settings); //Store.logs when connecting to db
+            for(int i = 0;i<jsonArray.length();i++){
+                JSONObject json_data = jsonArray.getJSONObject(i);
+
+                //json_data.getString("log_info");
+                //json_data.getString("log_type");
+                container_progress = Integer.parseInt(json_data.getString("critical_value").toString());
+                tvPercentage.setText(Integer.toString(container_progress)+"0%");
+                tbNotif.setChecked(json_data.getBoolean("sms_notification")); // Default
+                Log.d("gago", String.valueOf(json_data.getString("sms_notification")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sbNotif.setProgress(container_progress);
         sbNotif.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             //checks the amount of container (ranging from 0-10)
             @Override
@@ -71,7 +94,7 @@ public class Settings extends AppCompatActivity
             }
         });
 
-        tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
+
         tbNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             //  enable/disable notification
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -128,13 +151,6 @@ public class Settings extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return true;
     }
 
     @Override
