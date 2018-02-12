@@ -80,6 +80,7 @@ public class ViewLogs extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         /*
         btn_logs = (Button) findViewById(R.id.btn_log);
         //View More Log
@@ -87,9 +88,9 @@ public class ViewLogs extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 AlertDialog alertDialog = new AlertDialog.Builder(ViewLogs.this).create();
-                alertDialog.setTitle("Alert");
+                alertDialog.setTitle("More Info");
                 alertDialog.setMessage("Alert message to be shown");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Close",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
@@ -98,6 +99,7 @@ public class ViewLogs extends AppCompatActivity
                 alertDialog.show();
             }
         });*/
+
     }
 
     @Override
@@ -147,11 +149,15 @@ public class ViewLogs extends AppCompatActivity
 
 
     public void LogDialog(View view) {
+        //button for each row in log view
         tv_log_info = (TextView) findViewById(R.id.tv_log_info);
         tv_log_title = (TextView) findViewById(R.id.tv_log_type);
+
+
+        int s = (int) recyclerLog.getChildItemId(view);
         //DataLog v = data.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("asd")
+        builder.setMessage(s)
                 .setCancelable(true)
                 .setTitle("More Info")
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {

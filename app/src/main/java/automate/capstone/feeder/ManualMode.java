@@ -14,11 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class ManualMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Spinner spnrMeasure;
+    EditText et_manual_feed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,4 +93,12 @@ public class ManualMode extends AppCompatActivity
         return true;
     }
 
+    public void onSubmitManual(View view) {
+        DatabaseHelper dh = new DatabaseHelper(this);
+        et_manual_feed = (EditText) findViewById(R.id.et_manual_feed);
+        String feed = et_manual_feed.getText().toString();
+        Toast.makeText(this,feed,Toast.LENGTH_LONG).show();
+        dh.execute("select manual",feed);
+
+    }
 }

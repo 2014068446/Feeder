@@ -8,10 +8,10 @@
     tools:context="automate.capstone.feeder.ViewLogs">
     <TextView
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/tv_log_type"
+        android:layout_width="300dp"
+        android:id="@+id/tv_log_info"
         android:text="Type"
-        android:gravity="center_horizontal"
+        android:gravity="left"
         android:textAppearance="?android:textAppearanceLarge"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
@@ -19,13 +19,13 @@
         />
     <TextView
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/tv_log_info"
+        android:layout_width="300dp"
+        android:id="@+id/tv_log_type"
         android:text="Info"
-        android:gravity="center_horizontal"
+        android:gravity="left"
         android:textAppearance="?android:textAppearanceSmall"
-        android:layout_below="@+id/tv_log_type"
-        android:layout_alignLeft="@+id/tv_log_type"
+        android:layout_below="@+id/tv_log_info"
+        android:layout_alignLeft="@+id/tv_log_info"
         android:layout_marginTop="5dp"
 
 
