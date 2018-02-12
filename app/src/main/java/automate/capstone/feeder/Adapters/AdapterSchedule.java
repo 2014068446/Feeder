@@ -46,7 +46,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
         AdapterSchedule.MyHolder myHolder = (AdapterSchedule.MyHolder) holder;
         current = data.get(position);
         myHolder.tvScheduleName.setText(current.sched_name);
-        myHolder.tvScheduleInfo.setText(current.start_date+ " - " + current.end_date);
+        myHolder.tvScheduleInfo.setText(current.start_date + " - " + current.end_date +
+                "\n\n" + "Feed amount: " + current.feed_amount + "g");
     }
 
     @Override

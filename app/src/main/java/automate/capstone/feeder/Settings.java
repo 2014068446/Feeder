@@ -34,6 +34,7 @@ public class Settings extends AppCompatActivity
     Button btnSubmitSetting;
     SeekBar sbNotif;
     TextView tvPercentage;
+    CheckBox cbUserNotif,cbSystemNotif;
 
     //variables to be passed
     Boolean notif , user_notif, sys_notif;
@@ -54,25 +55,34 @@ public class Settings extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
 
+        String toggleButton, checkboxUser, checkboxSystem;
         sbNotif = (SeekBar) findViewById(R.id.sb_notif);
+        tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
         tvPercentage = (TextView) findViewById(R.id.tv_percentage_container);
+        cbSystemNotif = (CheckBox) findViewById(R.id.cb_sysnotif);
+        cbUserNotif = (CheckBox) findViewById(R.id.cb_usernotif);
+
         try {
             JSONArray jsonArray = new JSONArray(Store.settings); //Store.logs when connecting to db
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject json_data = jsonArray.getJSONObject(i);
 
-                //json_data.getString("log_info");
-                //json_data.getString("log_type");
+                checkboxUser = json_data.getString("user_logs");
+                checkboxSystem = json_data.getString("system_logs");
+                toggleButton = json_data.getString("sms_notification"); // Default
+
                 container_progress = Integer.parseInt(json_data.getString("critical_value").toString());
                 tvPercentage.setText(Integer.toString(container_progress)+"0%");
-                tbNotif.setChecked(json_data.getBoolean("sms_notification")); // Default
-                Log.d("gago", String.valueOf(json_data.getString("sms_notification")));
+
+                tbNotif.setChecked(Boolean.parseBoolean(toggleButton));
+                cbUserNotif.setChecked(Boolean.parseBoolean(checkboxUser));
+                cbSystemNotif.setChecked(Boolean.parseBoolean(checkboxSystem));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         sbNotif.setProgress(container_progress);
         sbNotif.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             //checks the amount of container (ranging from 0-10)
@@ -95,7 +105,7 @@ public class Settings extends AppCompatActivity
         });
 
 
-        tbNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      /*  tbNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             //  enable/disable notification
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -107,7 +117,7 @@ public class Settings extends AppCompatActivity
                 }
             }
         });
-
+*/
         btnSubmitSetting = (Button) findViewById(R.id.btn_submit_settings);
     }
 

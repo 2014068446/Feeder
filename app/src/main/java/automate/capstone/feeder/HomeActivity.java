@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity
 
                     try{
                         Store.logs = dh.get().toString();
-                       btnAutomatic.setEnabled(true);
+                        btnAutomatic.setEnabled(true);
                         btnManual.setEnabled(true);
                         btnViewLogs.setEnabled(true);
                         menu_nav.setGroupEnabled(R.id.nav_group, true);
@@ -71,9 +71,6 @@ public class HomeActivity extends AppCompatActivity
                         menu_nav.setGroupEnabled(R.id.nav_group, false);
                         Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
                     }
-
-
-
             }
         });
 
