@@ -51,7 +51,7 @@ public class AutomaticMode extends AppCompatActivity
     EditText et_schedule_name, et_feeds;
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;
-    List<DataAutomaticRecycler> data;
+    List<String> data;
     DatabaseHelper dh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,13 +118,13 @@ public class AutomaticMode extends AppCompatActivity
             recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_automatic_mode);
             recyclerSchedule.setAdapter(adapterAutomaticMode);
             recyclerSchedule.setLayoutManager(new LinearLayoutManager(AutomaticMode.this));
-            dataTime.time = String.format("%02d:%02d", hourOfDay, minute);
+            dataTime.setTime(String.format("%02d:%02d", hourOfDay, minute));
 
-            if (data.contains(dataTime.time)) {
-                Log.d("Schedule Error:", "Naulit ang paglagay ng oras. Ito ay ipinagbabawal.");
+            if (data.contains(dataTime.getTime())) {
+                Toast.makeText(this, "You cannot enter more than two same time.", Toast.LENGTH_SHORT).show();
             }
             else{
-                data.add(dataTime);
+                data.add(dataTime.getTime());
                 adapterAutomaticMode.notifyDataSetChanged();
             }
         }
@@ -195,8 +195,9 @@ public class AutomaticMode extends AppCompatActivity
         String title = scheduleName+" has been created (Automatic Schedule)";
         String log = feed+" "+measure;
         //String log = "This schedule will serve "+feed+" "+measure+" every meal";
-        for(DataAutomaticRecycler element: data){
-            time+=element.time+",";
+        for(String element: data){
+            DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
+            time+=dataTime.getTime()+",";
         }
         DatabaseHelper dh = new DatabaseHelper(this);
 

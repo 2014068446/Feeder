@@ -6,4 +6,12 @@ package automate.capstone.feeder.DataRecycler;
 
 public class DataAutomaticRecycler {
     public String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

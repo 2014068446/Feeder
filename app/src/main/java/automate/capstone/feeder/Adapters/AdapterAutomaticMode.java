@@ -21,11 +21,11 @@ import automate.capstone.feeder.R;
 public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
-    List<DataAutomaticRecycler> data = Collections.emptyList();
-    DataAutomaticRecycler current;
+    List<String> data = Collections.emptyList();
+    String current;
     public Button removeTime;
 
-    public AdapterAutomaticMode(Context context, List<DataAutomaticRecycler> data) {
+    public AdapterAutomaticMode(Context context, List<String> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
@@ -42,7 +42,7 @@ public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (AdapterAutomaticMode.MyHolder) holder;
         current = data.get(position);
-        myHolder.tvTime.setText(current.time);
+        myHolder.tvTime.setText(data.get(position).toString());
     }
 
     @Override
