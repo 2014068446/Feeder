@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.sql.SQLException;
@@ -40,6 +41,8 @@ import java.util.concurrent.ExecutionException;
 
 import automate.capstone.feeder.Adapters.AdapterAutomaticMode;
 import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
+import automate.capstone.feeder.DataRecycler.DataLog;
+import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
 
@@ -153,28 +156,6 @@ public class AutomaticMode extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent goToSettings = new Intent(this,Settings.class);
-            startActivity(goToSettings);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -193,16 +174,15 @@ public class AutomaticMode extends AppCompatActivity
         String measure = spnrMeasure.getSelectedItem().toString();
         String startdate = tvStartDate.getText().toString();
         String time="";
-        String title = scheduleName+" has been created (Automatic Schedule)";
+        String title = scheduleName+" has been created \n(Automatic Schedule)";
         String log = feed+" "+measure;
         //String log = "This schedule will serve "+feed+" "+measure+" every meal";
         for(String element: data){
             DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
             time+=element.toString()+",";
         }
-        DatabaseHelper dh = new DatabaseHelper(this);
-
-        dh.execute("add schedule",title,log,scheduleName,feed,duration,measure,startdate,time);
+            DatabaseHelper dh = new DatabaseHelper(this);
+            dh.execute("add schedule",title,log,scheduleName,feed,duration,measure,startdate,time);
         //dh.delegate = AutomaticMode.this;
         //dh.test();
     }

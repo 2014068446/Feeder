@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
 import automate.capstone.feeder.Adapters.AdapterLog;
 import automate.capstone.feeder.DataRecycler.DataLog;
@@ -60,6 +61,7 @@ public class ViewLogs extends AppCompatActivity
                 data.add(dataLog);
             }
         } catch (JSONException e) {
+            Toast.makeText(this, "No logs found.", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         recyclerLog = (RecyclerView) findViewById(R.id.recyclerlog);
@@ -89,29 +91,6 @@ public class ViewLogs extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.view_logs, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent goToSettings = new Intent(this,Settings.class);
-            startActivity(goToSettings);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

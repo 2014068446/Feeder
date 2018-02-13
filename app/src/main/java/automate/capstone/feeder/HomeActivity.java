@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,12 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
@@ -30,6 +37,15 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
         final DatabaseHelper dh = new DatabaseHelper(this);
         connection = false;
         btnAutomatic = (Button) findViewById(R.id.btn_Automatic);
@@ -47,41 +63,31 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         menu_nav = navigationView.getMenu();
         menu_nav.setGroupEnabled(R.id.nav_group,false);
-        Toast.makeText(this,Store.settings,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,Store.settings,Toast.LENGTH_LONG).show();
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rpi_ip_address = etIP_Address.getText().toString();
-                Store.ip_address=rpi_ip_address;
-                DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
-                String type="view logs";
+                Store.ip_address = rpi_ip_address;
+                String type="test con";
                 dh.execute(type);
-
-                    try{
-                        Store.logs = dh.get().toString();
-                        btnAutomatic.setEnabled(true);
-                        btnManual.setEnabled(true);
-                        btnViewLogs.setEnabled(true);
-                        menu_nav.setGroupEnabled(R.id.nav_group, true);
-                        Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
-                    }catch(Exception e){
-                        btnAutomatic.setEnabled(false);
-                        btnManual.setEnabled(false);
-                        btnViewLogs.setEnabled(false);
-                        menu_nav.setGroupEnabled(R.id.nav_group, false);
-                        Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
-                    }
+                try{
+                    Store.logs = dh.get().toString();
+                    btnAutomatic.setEnabled(true);
+                    btnManual.setEnabled(true);
+                    btnViewLogs.setEnabled(true);
+                    menu_nav.setGroupEnabled(R.id.nav_group, true);
+                    Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
+                    btnAutomatic.setEnabled(false);
+                    btnManual.setEnabled(false);
+                    btnViewLogs.setEnabled(false);
+                    menu_nav.setGroupEnabled(R.id.nav_group, false);
+                    Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
     }
 
     @Override
@@ -113,20 +119,6 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent goToSettings = new Intent(this,Settings.class);
-            startActivity(goToSettings);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -143,4 +135,5 @@ public class HomeActivity extends AppCompatActivity
     public void processFinish(String output) {
 
     }
+
 }

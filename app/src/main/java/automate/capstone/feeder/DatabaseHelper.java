@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -33,11 +34,12 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     DatabaseHelper(Context ctx){
         context = ctx;
     }
+
     @Override
     protected String doInBackground(String... params) {
         type = params[0];
         String home_url="http://"+Store.ip_address+"/feeder";
-        if(type.equals("view logs")){
+        if(type.equals("view logs") || type.equals("test con")){
             String viewlogurl = home_url + "/home/logs";
             try {
                 URL url = new URL(viewlogurl);
@@ -231,11 +233,12 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     @Override
     protected void onPostExecute(String result) {
         if (type.equals("view logs")) {
-            //Toast.makeText(context,"Connection Success!", Toast.LENGTH_LONG).show();
             Store.logs = result;
-
-        }
-        if(type.equals("add schedule")){
+            Intent intent = new Intent(context, ViewLogs.class);
+            context.startActivity(intent);
+        }if (type.equals("test con")) {
+            Store.logs = result;
+        }if(type.equals("add schedule")){
             Toast.makeText(context,"Schedule Created Successfully!", Toast.LENGTH_LONG).show();
         }if(type.equals("select manual")){
             Toast.makeText(context,result, Toast.LENGTH_LONG).show();

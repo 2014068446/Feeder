@@ -20,8 +20,11 @@ public class NavigationItemSelect {
             Intent intent = new Intent(context, ManualMode.class);
             context.startActivity(intent);
         } else if (id == R.id.nav_logs) {
-            Intent intent = new Intent(context, ViewLogs.class);
-            context.startActivity(intent);
+            DatabaseHelper dh = new DatabaseHelper(context);
+            String type="view logs";
+            dh.execute(type);
+            //Intent intent = new Intent(context, ViewLogs.class);
+            //context.startActivity(intent);
         } else if (id == R.id.nav_schedule) {
             DatabaseHelper dh = new DatabaseHelper(context);
             String type="view schedule";

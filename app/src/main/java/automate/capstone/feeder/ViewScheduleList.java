@@ -46,7 +46,7 @@ public class ViewScheduleList extends AppCompatActivity
         String schedules= Store.schedules;
         data = new ArrayList<>();
         try {
-            JSONArray jsonArray = new JSONArray(schedules); //Store.logs when connecting to db
+            JSONArray jsonArray = new JSONArray(schedules);
             for(int i = 0;i<jsonArray.length();i++){
                 JSONObject json_data = jsonArray.getJSONObject(i);
                 DataSchedule dataSched = new DataSchedule();
@@ -60,6 +60,7 @@ public class ViewScheduleList extends AppCompatActivity
             }
         }catch (JSONException e) {
             e.printStackTrace();
+            Toast.makeText(this, "No schedule found.", Toast.LENGTH_SHORT).show();
         }
 
         adapterSchedule =  new AdapterSchedule(ViewScheduleList.this,data);
@@ -78,29 +79,6 @@ public class ViewScheduleList extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.view_schedule_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent goToSettings = new Intent(this,Settings.class);
-            startActivity(goToSettings);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
