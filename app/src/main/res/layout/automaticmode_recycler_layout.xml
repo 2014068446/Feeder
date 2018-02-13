@@ -16,8 +16,8 @@
     <Button
         android:id="@+id/btn_remove_time_schedule"
         android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ic_menu_manage"
-        android:layout_toEndOf="@+id/tv_time_automatic_sched_recycler" />
+        android:layout_height="30dp"
+        android:layout_toEndOf="@+id/tv_time_automatic_sched_recycler"
+        android:background="@android:drawable/ic_menu_close_clear_cancel" />
 
 </RelativeLayout>

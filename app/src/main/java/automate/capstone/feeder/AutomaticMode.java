@@ -51,8 +51,9 @@ public class AutomaticMode extends AppCompatActivity
     EditText et_schedule_name, et_feeds;
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;
-    List<String> data;
+    List<String> data = new ArrayList<>();
     DatabaseHelper dh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class AutomaticMode extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        data = new ArrayList<>();
+
         et_feeds = (EditText)findViewById(R.id.et_feeds);
         et_schedule_name = (EditText)findViewById(R.id.et_schedule_name);
         tvStartDate = (TextView) findViewById(R.id.tv_start_date_desc);
@@ -197,7 +198,7 @@ public class AutomaticMode extends AppCompatActivity
         //String log = "This schedule will serve "+feed+" "+measure+" every meal";
         for(String element: data){
             DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
-            time+=dataTime.getTime()+",";
+            time+=element.toString()+",";
         }
         DatabaseHelper dh = new DatabaseHelper(this);
 
