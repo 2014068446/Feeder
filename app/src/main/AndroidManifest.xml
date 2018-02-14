@@ -26,7 +26,6 @@
             android:label="@string/title_activity_automatic_mode"
             android:parentActivityName=".HomeActivity"
             android:windowSoftInputMode="adjustPan">
-        >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="automate.capstone.feeder.HomeActivity" />
