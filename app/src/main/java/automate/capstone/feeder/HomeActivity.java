@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity
                 String type="test con";
                 dh.execute(type);
                 try{
-                    Store.logs = dh.get().toString();
+                    Store.logs = dh.get();
                     btnAutomatic.setEnabled(true);
                     btnManual.setEnabled(true);
                     btnViewLogs.setEnabled(true);
