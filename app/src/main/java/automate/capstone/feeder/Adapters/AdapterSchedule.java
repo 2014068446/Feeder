@@ -56,13 +56,15 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tvScheduleName;
         TextView tvScheduleInfo;
-        Button btnViewSchedInfo;
+        Button btnViewSchedInfo, btnDeleteSched;
         public MyHolder(View itemView) {
             super(itemView);
             btnViewSchedInfo = (Button) itemView.findViewById(R.id.btn_view_sched_info);
+            btnDeleteSched = (Button) itemView.findViewById(R.id.btn_delete_sched);
             tvScheduleName = (TextView) itemView.findViewById(R.id.tv_schedule_name_recycler);
             tvScheduleInfo = (TextView) itemView.findViewById(R.id.tv_schedule_info_recycler);
 
+            //
             btnViewSchedInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,10 +77,55 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
+                            })
+                            .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //isa pang dialog
+                                    editAt(getAdapterPosition());
+                                }
                             });
                     builder.create().show();
                 }
             });
+            //
+            btnDeleteSched.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Are you sure you want to delete " + tvScheduleName.getText().toString() + "?")
+                            .setCancelable(true)
+                            .setTitle("Warning!")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                        removeAt(getAdapterPosition());
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
+            });
+
         }
     }
+
+    //
+    public void removeAt(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, data.size());
+    }
+    //
+    public void editAt(int position){
+        //edit code
+
+
+    }
+
 }

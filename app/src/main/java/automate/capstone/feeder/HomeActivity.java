@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        final DatabaseHelper dh = new DatabaseHelper(this);
+
         connection = false;
         btnAutomatic = (Button) findViewById(R.id.btn_Automatic);
         btnManual = (Button) findViewById(R.id.btn_Manual);
@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
                 rpi_ip_address = etIP_Address.getText().toString();
                 Store.ip_address = rpi_ip_address;
                 String type="test con";

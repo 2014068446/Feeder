@@ -68,8 +68,14 @@ public class AdapterLog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             btnViewInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String tvMessage = "";
+                    if (tvLogInfo.getText().toString().equals("Feeding Activity Was Done (Manual)")){
+                        tvMessage= "This activity dropped "+ tvLogType.getText().toString();
+                    } else {
+                        tvMessage= "This schedule will drop "+ tvLogType.getText().toString()+" of feeds every meal";
+                    }
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage("This schedule will serve "+ tvLogType.getText().toString()+" every meal")
+                    builder.setMessage(tvMessage)
                             .setCancelable(true)
                             .setTitle(tvLogInfo.getText().toString())
                             .setNegativeButton("Close", new DialogInterface.OnClickListener() {
