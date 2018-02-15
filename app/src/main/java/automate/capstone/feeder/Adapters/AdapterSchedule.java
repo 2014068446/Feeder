@@ -1,14 +1,23 @@
 package automate.capstone.feeder.Adapters;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -81,8 +90,12 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //isa pang dialog
-                                    editAt(getAdapterPosition());
+                                    //labas edit dialog
+                                    CustomDialogue dialogue = new CustomDialogue();
+                                    dialogue.show(getSupportFragmentManager(),"LOGIN");
+                                    //use getSupportFragmentManager() if other API something
+
+                                    //
                                 }
                             });
                     builder.create().show();
@@ -122,10 +135,50 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemRangeChanged(position, data.size());
     }
     //
-    public void editAt(int position){
+    public void editAt(int position,String newdate, String newtime, String newfeed){
         //edit code
 
 
+    }
+
+    @SuppressLint("ValidFragment")
+    class CustomDialogue extends DialogFragment{
+        LayoutInflater inflater;
+        View view;
+        EditText etEditFeedAmount;
+        TextView tvEditDate, tvEditTime;
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            inflater = getActivity().getLayoutInflater();
+            view = inflater.inflate(R.layout.schedule_edit_dialog,null);
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+            builder.setView(view);
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //what button does
+                    tvEditDate =(TextView) view.findViewById(R.id.tv_edit_date_placeholder);
+                    tvEditTime =(TextView) view.findViewById(R.id.tv_edit_time_placeholder);
+                    etEditFeedAmount =(EditText) view.findViewById(R.id.et_edit_feed_amount);
+
+                    editAt(1,tvEditDate.toString(),tvEditTime.toString(),etEditFeedAmount.toString());
+
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+
+            Dialog dialog = builder.create();
+
+            return dialog;
+        }
     }
 
 }
