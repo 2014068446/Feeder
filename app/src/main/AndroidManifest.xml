@@ -9,10 +9,11 @@
         android:windowSoftInputMode="adjustResize|stateHidden"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/CustomTheme"        >
+        android:screenOrientation="portrait"
+        android:theme="@style/CustomTheme">
 
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +23,12 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".AutomaticMode"
             android:label="@string/title_activity_automatic_mode"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomeActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -35,6 +38,7 @@
         <activity
             android:name=".ManualMode"
             android:label="@string/title_activity_manual_mode"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomeActivity"
             >
             <meta-data
@@ -43,6 +47,7 @@
         </activity>
         <activity
             android:name=".ViewLogs"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_view_logs"
             android:parentActivityName=".HomeActivity"
             >
@@ -52,6 +57,7 @@
         </activity>
         <activity
             android:name=".Settings"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".HomeActivity"
             >
@@ -61,6 +67,7 @@
         </activity>
         <activity
             android:name=".ViewScheduleList"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_view_schedule_list"
             android:parentActivityName=".HomeActivity"
             >
@@ -70,6 +77,7 @@
         </activity>
         <activity
             android:name=".ViewSchedule"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_view_schedule"
             android:parentActivityName=".HomeActivity"
             >

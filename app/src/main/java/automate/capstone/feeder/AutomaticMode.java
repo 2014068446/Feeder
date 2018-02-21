@@ -88,6 +88,7 @@ public class AutomaticMode extends AppCompatActivity
             }
         });
 
+
         btnStartDate = (Button) findViewById(R.id.btn_start_date);
         btnStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
