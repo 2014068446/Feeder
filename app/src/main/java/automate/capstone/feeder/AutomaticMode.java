@@ -2,7 +2,6 @@ package automate.capstone.feeder;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -13,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,10 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -41,8 +35,6 @@ import java.util.concurrent.ExecutionException;
 
 import automate.capstone.feeder.Adapters.AdapterAutomaticMode;
 import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
-import automate.capstone.feeder.DataRecycler.DataLog;
-import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
 
@@ -75,7 +67,7 @@ public class AutomaticMode extends AppCompatActivity
 
 
         et_feeds = (EditText)findViewById(R.id.et_feeds);
-        et_schedule_name = (EditText)findViewById(R.id.et_schedule_name);
+        et_schedule_name = (EditText)findViewById(R.id.et_schedule_name_editing);
         tvStartDate = (TextView) findViewById(R.id.tv_start_date_desc);
         tv_schedule_name = (TextView) findViewById(R.id.tv_schedule_name);
         tv_feed = (TextView) findViewById(R.id.tv_feed);

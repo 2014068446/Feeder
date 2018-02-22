@@ -37,6 +37,7 @@ import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
 import automate.capstone.feeder.R;
+import automate.capstone.feeder.Store;
 import automate.capstone.feeder.ViewScheduleList;
 
 /**
@@ -49,6 +50,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<DataSchedule> data = Collections.emptyList();
     List<String> newdata = Collections.emptyList();
     DataSchedule current;
+    String id;
     //int currentPos = 0;
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;
@@ -72,6 +74,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
         AdapterSchedule.MyHolder myHolder = (AdapterSchedule.MyHolder) holder;
         current = data.get(position);
         myHolder.tvScheduleName.setText(current.sched_name);
+        Store.schedule_id = current.id;
         myHolder.tvScheduleInfo.setText(current.start_date + " - " + current.end_date +
                 "\n\n" + "Feed amount: " + current.feed_amount + "g");
     }
@@ -115,7 +118,6 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
             btnDeleteSched = (Button) itemView.findViewById(R.id.btn_delete_sched);
             tvScheduleName = (TextView) itemView.findViewById(R.id.tv_schedule_name_recycler);
             tvScheduleInfo = (TextView) itemView.findViewById(R.id.tv_schedule_info_recycler);
-
             //
             btnViewSchedInfo.setOnClickListener(new View.OnClickListener() {
                 @Override

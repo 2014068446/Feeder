@@ -10,4 +10,5 @@ public class Store {
     public static String ip_address;
     public static String schedules=null;
     public static String settings=null;
+    public static String schedule_id;
 }
