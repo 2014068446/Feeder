@@ -254,6 +254,40 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
 
             }
         }
+        else if(type.equals("delete schedule")){
+            //String feed_amount=params[1];
+
+            String addscheduleurl = home_url + "/home/deleteschedule";
+            String schedule_id = params[1];
+            try {
+                URL url = new URL(addscheduleurl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data =
+                        URLEncoder.encode("id_automatic","UTF-8")+"="+URLEncoder.encode(schedule_id,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine()) != null){
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            }catch(Exception e){
+
+            }
+        }
         return null;
     }
 
@@ -288,6 +322,8 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
             Store.schedule = result;
             Intent intent = new Intent(context,ViewSchedule.class);
             context.startActivity(intent);
+        }if(type.equals("delete schedule")){
+            Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_LONG).show();
         }
         Store.finished=true;
 

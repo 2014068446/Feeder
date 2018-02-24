@@ -54,7 +54,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     //int currentPos = 0;
     private AdapterAutomaticMode adapterAutomaticMode;
     private RecyclerView recyclerSchedule;
-    TextView tvEditDateph, tvEditTimeph;
+    TextView tvEditDateph;
     AdapterSchedule.MyHolder myHolder;
 
     public AdapterSchedule(Context context, List<DataSchedule> data) {
@@ -74,6 +74,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
         AdapterSchedule.MyHolder myHolder = (AdapterSchedule.MyHolder) holder;
         current = data.get(position);
         myHolder.tvScheduleName.setText(current.sched_name);
+        myHolder.tvHiddenLeaf.setText(current.id);
         myHolder.tvScheduleInfo.setText(current.start_date + " - " + current.end_date +
                 "\n\n" + "Feed amount: " + current.feed_amount + "g");
     }
@@ -108,9 +109,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
     class MyHolder extends RecyclerView.ViewHolder{
         TextView tvScheduleName;
         TextView tvScheduleInfo,tvHiddenLeaf;
-        EditText etEditFeedAmount;
         Button btnViewSchedInfo, btnDeleteSched;
-        Button btnSetTime, btnSetDate;
         public MyHolder(final View itemView) {
             super(itemView);
             btnViewSchedInfo = (Button) itemView.findViewById(R.id.btn_view_sched_info);
@@ -136,23 +135,9 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(final DialogInterface dialog, int which) {
-                            //Intent intent = new Intent(context, ViewSchedule.class);
-                            //intent.putExtra("dateToEdit", current.date_added);
-                            //intent.putExtra("timeToEdit", current.start_date);
-                            //intent.putExtra("feedsToEdit", current.feed_amount);
-                            //intent.putExtra("scheduleID", current.id);
-                            //context.startActivity(intent);
-
-
-                            tvHiddenLeaf.setText(current.id);
-
-
-                            Store.schedules_id = current.id;
-                            //Toast.makeText(context,Store.schedules_id,Toast.LENGTH_SHORT).show();
+                            Store.schedules_id = tvHiddenLeaf.getText().toString();
                             DatabaseHelper dh = new DatabaseHelper(context);
                             dh.execute("view schedule id", Store.schedules_id);
-                            //context.startActivity(intent);
-
                         }
 
                     });
@@ -170,7 +155,12 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                        removeAt(getAdapterPosition());
+                                    Store.schedules_id = tvHiddenLeaf.getText().toString();
+                                    DatabaseHelper dh = new DatabaseHelper(context);
+                                    dh.execute("delete schedule", Store.schedules_id);
+                                    data.remove(getAdapterPosition());
+                                    notifyItemRemoved(getAdapterPosition());
+                                    notifyItemRangeChanged(getAdapterPosition(), data.size());
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -188,18 +178,7 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
-    //
-    public void removeAt(int position) {
-        data.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, data.size());
-    }
-    //
-    public void editAt(int position, DataSchedule updated){
-        //edit code
-        data.set(position,updated);
 
-    }
 
 
 }

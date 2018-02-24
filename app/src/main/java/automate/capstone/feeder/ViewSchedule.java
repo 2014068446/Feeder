@@ -1,9 +1,13 @@
 package automate.capstone.feeder;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,8 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,17 +31,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import automate.capstone.feeder.Adapters.AdapterAutomaticMode;
+import automate.capstone.feeder.Adapters.AdapterEditSchedule;
 import automate.capstone.feeder.Adapters.AdapterSchedule;
+import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
+import automate.capstone.feeder.DataRecycler.DataEditScheduleRecycler;
 import automate.capstone.feeder.DataRecycler.DataLog;
+import automate.capstone.feeder.DataRecycler.DataSchedule;
+import automate.capstone.feeder.Fragments.DatePickerFragment;
+import automate.capstone.feeder.Fragments.TimePickerFragment;
 
 public class ViewSchedule extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    TextView testtsts;
-
-
-    TextView tvEditTime,tvEditDate;
-    EditText etEditFeed;
+    private AdapterEditSchedule adapterEditSchedule;
+    private RecyclerView recyclerEditSchedule;
+    List<DataSchedule> data = new ArrayList<>();
+    List timeArray = new ArrayList();
+    TextView tvEditDate;
+    EditText etEditFeed,etEditName;
+    private RecyclerView recyclerSchedule;
+    Button btnEditTime, btnEditDate;
+    DataSchedule dataView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +65,10 @@ public class ViewSchedule extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         tvEditDate = (TextView) findViewById(R.id.tv_edit_date_placeholder);
-        tvEditTime= (TextView) findViewById(R.id.tv_edit_time_placeholder);
         etEditFeed= (EditText) findViewById(R.id.et_edit_feed_amount);
+        etEditName= (EditText) findViewById(R.id.et_schedule_name_placeholder);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,12 +78,29 @@ public class ViewSchedule extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        tvEditDate.setText(getIntent().getStringExtra("dateToEdit"));
-        tvEditTime.setText(getIntent().getStringExtra("timeToEdit"));
-        etEditFeed.setText(getIntent().getStringExtra("feedsToEdit"));
 
+
+
+        btnEditDate = (Button) findViewById(R.id.btn_edit_date);
+        btnEditTime = (Button) findViewById(R.id.btn_edit_time);
+        btnEditTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timepicker = new TimePickerFragment();
+                timepicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+
+        btnEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datepicker = new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        //
         Toast.makeText(this, "wat" + (Store.schedules_id),Toast.LENGTH_SHORT).show();
-        /*
         JSONObject obj = null;
         try {
             obj = new JSONObject(Store.schedule);
@@ -68,16 +109,91 @@ public class ViewSchedule extends AppCompatActivity
             for(int i = 0;i<jsonSchedule.length();i++){
                 JSONObject json_data = jsonSchedule.getJSONObject(i);
 
-                Toast.makeText(this,json_data.getString("schedule_name")+json_data.getString("feed_amount"),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,json_data.getString("schedule_name")+json_data.getString("feed_amount"),Toast.LENGTH_LONG).show();
                 //Toast.makeText(this,json_data.getString("log_info"),Toast.LENGTH_LONG).show();
+                etEditName.setText(json_data.getString("schedule_name"));
+                tvEditDate.setText(json_data.getString("start_date"));
+                etEditFeed.setText(json_data.getString("feed_amount"));
 
                 //data.add(dataLog);
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(Store.schedule); //Store.logs when connecting to db
+            for(int i = 0;i<jsonArray.length();i++){
+                JSONObject json_data = jsonArray.getJSONObject(i);
+                dataView = new DataSchedule();
+                dataView.start_date= json_data.getString("start_date");
+                data.add(dataView);
+            }
+        } catch (JSONException e) {
+            Toast.makeText(this, "No logs found.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
+        recyclerEditSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
+        adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,data);
+        recyclerEditSchedule.setAdapter(adapterEditSchedule);
+        recyclerEditSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
 
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    public void editAccept(View view) {
+        //dito lagay edit
+
+
+
+
+        Toast.makeText(this, "accepteddd", Toast.LENGTH_LONG).show();
+    }
+
+    public void editCancel(View view) {
+        Intent intent = new Intent(this, ViewScheduleList.class);
+        startActivity(intent);
+
+    }
+
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+        if (view.isShown()) {
+            DataEditScheduleRecycler dataTime = new DataEditScheduleRecycler();
+            adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,data);
+            recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
+            recyclerSchedule.setAdapter(adapterEditSchedule);
+            recyclerSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
+            dataTime.setTime(String.format("%02d:%02d", hourOfDay, minute));
+
+
+            if (timeArray.contains(dataTime.getTime())) {
+                Toast.makeText(this, "You cannot enter more than two same time.", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                timeArray.add(dataTime.getTime());
+                adapterEditSchedule.notifyDataSetChanged();
+            }
+
+
+        }
+    }
+
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        tvEditDate.setText(currentDateString);
+    }
+
 
     @Override
     public void onBackPressed() {

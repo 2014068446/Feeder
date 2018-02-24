@@ -48,7 +48,7 @@
         android:id="@+id/tv_hidden_leaf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asdasdasfas"
-        android:visibility="visible" />
+        android:text="placehold"
+        android:visibility="invisible" />
 
 </RelativeLayout>

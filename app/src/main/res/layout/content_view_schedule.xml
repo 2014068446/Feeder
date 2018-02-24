@@ -7,193 +7,49 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="automate.capstone.feeder.ViewSchedule"
     tools:showIn="@layout/app_bar_view_schedule">
+
+
+
+
+
+
     <TextView
-        android:id="@+id/tv_schedule_name"
+        android:id="@+id/tv_edit_schedule_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="19dp"
-        android:text="Schedule Name:"
-        android:textSize="25sp" />
-    <EditText
-        android:id="@+id/et_schedule_name_editing"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tv_schedule_name"
-        android:layout_alignBottom="@+id/tv_schedule_name"
-        android:layout_toEndOf="@+id/tv_schedule_name"
-        android:backgroundTint="@android:color/darker_gray"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Set New Name:"
         />
-
-    <TextView
-        android:id="@+id/tv_start_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_schedule_name"
-        android:layout_below="@+id/et_schedule_name_editing"
-        android:layout_marginTop="15dp"
-        android:text="Start Date"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tv_start_date"
-        android:layout_alignBottom="@+id/tv_start_date"
-        android:layout_alignStart="@+id/et_schedule_name_editing"
-        android:layout_marginStart="44dp"
-        android:text="Duration"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_start_date_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_start_date"
-        android:layout_alignBottom="@+id/btn_start_date"
-        android:layout_alignStart="@+id/tv_start_date"
-        android:text="Tap to set date" />
-
-    <Button
-        android:id="@+id/btn_start_date"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/tv_duration"
-        android:layout_toEndOf="@+id/tv_start_date_desc"
-        android:background="@android:drawable/ic_menu_my_calendar" />
-
-    <Spinner
-        android:id="@+id/spnr_duration"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_alignStart="@+id/tv_duration"
-        android:layout_alignTop="@+id/tv_start_date_desc"
-        android:background="?attr/colorButtonNormal"
-        android:entries="@array/duration_key"
-        />
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_time_desc"
-        android:layout_below="@+id/spnr_duration"
-        android:text="Time:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_time_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_start_date_desc"
-        android:layout_below="@+id/spnr_duration"
-        android:layout_marginTop="33dp"
-        android:text="Tap to add time" />
-
-    <Button
-        android:id="@+id/btn_time"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-
-        android:layout_alignTop="@+id/tv_time_desc"
-        android:layout_toEndOf="@+id/tv_time_desc"
-        android:background="@android:drawable/ic_menu_recent_history"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/tv_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tv_time_desc"
-        android:layout_below="@+id/btn_time"
-        android:layout_marginTop="13dp"
-        android:text="Schedule"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_feed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spnr_unit"
-        android:layout_toStartOf="@+id/et_feeds"
-        android:text="Enter Feed"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/et_feeds"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recycler_automatic_mode"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <Spinner
-        android:id="@+id/spnr_unit"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/et_feeds"
-        android:layout_alignBottom="@+id/et_feeds"
-        android:layout_toEndOf="@+id/et_feeds"
-        android:background="?attr/colorButtonNormal"
-        android:entries="@array/measure_key" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_feeds"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:onClick="saveLog"
-        android:text="Save" />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="300dp"
-        android:id="@+id/recycler_automatic_mode"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tv_schedule"
-        android:layout_centerHorizontal="true" />
-
-
-    <TextView
-        android:id="@+id/tv_ViewSchedule_tingin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
     <TextView
         android:id="@+id/tv_edit_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_edit_schedule_name"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_alignLeft="@id/tv_edit_schedule_name"
         android:text="Set New Date: "/>
 
-    <TextView
-        android:id="@+id/tv_edit_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_edit_date"
-        android:text="Set New Time: "
-        android:layout_marginTop="20dp"
-        android:layout_alignLeft="@id/tv_edit_date"
-        />
 
     <TextView
-        android:layout_below="@id/tv_edit_time"
+        android:layout_below="@id/tv_edit_date"
         android:id="@+id/tv_edit_feed_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Set New Feed Amount: "
         android:layout_marginTop="30dp"
-        android:layout_alignLeft="@+id/tv_edit_time"/>
+        android:layout_alignLeft="@+id/tv_edit_date"/>
+
+    <EditText
+        android:layout_toRightOf="@+id/tv_edit_schedule_name"
+        android:id="@+id/et_schedule_name_placeholder"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_edit_schedule_name"
+        android:layout_alignBaseline="@id/tv_edit_schedule_name"
+        android:text="Schedule Name Placeholder"/>
 
     <TextView
         android:layout_toRightOf="@+id/tv_edit_date"
@@ -202,14 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tv_edit_date"
         android:text="January 1, 2018 Placeholder"/>
-
-    <TextView
-        android:layout_alignTop="@+id/tv_edit_time"
-        android:layout_toRightOf="@+id/tv_edit_time"
-        android:id="@+id/tv_edit_time_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="9:00AM Placeholder"/>
 
 
     <Button
@@ -226,13 +74,12 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignStart="@+id/btn_edit_date"
-        android:layout_alignTop="@+id/tv_edit_time_placeholder"
         android:background="@android:drawable/ic_menu_recent_history" />
 
     <EditText
         android:layout_toRightOf="@+id/tv_edit_feed_amount"
         android:id="@+id/et_edit_feed_amount"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tv_edit_feed_amount"
         />
@@ -246,4 +93,39 @@
         android:background="?attr/colorButtonNormal"
         android:entries="@array/measure_key" />
 
+
+    <Button
+        android:id="@+id/btn_edit_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignEnd="@+id/btn_edit_time"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="11dp"
+        android:onClick="editAccept"
+        android:text="Accept" />
+
+    <Button
+        android:id="@+id/btn_edit_cancel"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_edit_accept"
+        android:layout_alignBottom="@+id/btn_edit_accept"
+        android:layout_alignStart="@+id/et_edit_feed_amount"
+        android:onClick="editCancel"
+        android:text="Cancel" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/recycler_edit_schedule"
+
+        >
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
