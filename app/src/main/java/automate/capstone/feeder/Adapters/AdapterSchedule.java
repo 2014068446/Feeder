@@ -1,7 +1,6 @@
 package automate.capstone.feeder.Adapters;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.annotation.SuppressLint;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,12 +34,9 @@ import java.util.List;
 
 import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
 import automate.capstone.feeder.DataRecycler.DataSchedule;
-import automate.capstone.feeder.DatabaseHelper;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
 import automate.capstone.feeder.R;
-import automate.capstone.feeder.Store;
-import automate.capstone.feeder.ViewSchedule;
 import automate.capstone.feeder.ViewScheduleList;
 
 /**
@@ -110,17 +105,16 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class MyHolder extends RecyclerView.ViewHolder{
         TextView tvScheduleName;
-        TextView tvScheduleInfo,tvHiddenLeaf;
-
+        TextView tvScheduleInfo;
+        EditText etEditFeedAmount;
         Button btnViewSchedInfo, btnDeleteSched;
+        Button btnSetTime, btnSetDate;
         public MyHolder(final View itemView) {
             super(itemView);
             btnViewSchedInfo = (Button) itemView.findViewById(R.id.btn_view_sched_info);
             btnDeleteSched = (Button) itemView.findViewById(R.id.btn_delete_sched);
             tvScheduleName = (TextView) itemView.findViewById(R.id.tv_schedule_name_recycler);
             tvScheduleInfo = (TextView) itemView.findViewById(R.id.tv_schedule_info_recycler);
-            tvHiddenLeaf = (TextView) itemView.findViewById(R.id.tv_hidden_leaf);
-
 
             //
             btnViewSchedInfo.setOnClickListener(new View.OnClickListener() {
@@ -139,20 +133,57 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(final DialogInterface dialog, int which) {
-                            //Intent intent = new Intent(context, ViewSchedule.class);
-                            //intent.putExtra("dateToEdit", current.date_added);
-                            //intent.putExtra("timeToEdit", current.start_date);
-                            //intent.putExtra("feedsToEdit", current.feed_amount);
-                            //intent.putExtra("scheduleID", current.id);
-                            //context.startActivity(intent);
+                            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                            final View dialogView = inflater.inflate(R.layout.schedule_edit_dialog, null);
+                            dialogBuilder.setView(dialogView);
 
-                            tvHiddenLeaf.setText(current.id);
+                            btnSetDate = (Button) dialogView.findViewById(R.id.btn_edit_date);
 
-                            Store.schedules_id = current.id;
-                            //Toast.makeText(context,Store.schedules_id,Toast.LENGTH_SHORT).show();
-                            DatabaseHelper dh = new DatabaseHelper(context);
-                            dh.execute("view schedule id", Store.schedules_id);
-                            //context.startActivity(intent);
+
+                            tvEditDateph = (TextView) dialogView.findViewById(R.id.tv_edit_date_placeholder);
+                            tvEditTimeph = (TextView) dialogView.findViewById(R.id.tv_edit_time_placeholder);
+                            etEditFeedAmount = (EditText) dialogView.findViewById(R.id.et_edit_feed_amount);
+
+                            tvEditDateph.setText(current.start_date);
+                            tvEditTimeph.setText(current.start_date);
+                            etEditFeedAmount.setText(current.feed_amount);
+
+                            dialogBuilder.setTitle("Editing " + current.sched_name + "...");
+
+                            btnSetTime = (Button) dialogView.findViewById(R.id.btn_edit_time);
+                            btnSetTime.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    DialogFragment timepicker = new TimePickerFragment();
+                                    timepicker.show(((ViewScheduleList)context).getSupportFragmentManager(), "timepicker");
+                                }
+                            });
+                            btnSetDate.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    DialogFragment datepicker = new DatePickerFragment();
+                                    Toast.makeText(context, "Date Picker", Toast.LENGTH_SHORT).show();
+                                    datepicker.show(((ViewScheduleList)context).getSupportFragmentManager(), "datepicker");
+                                }
+                            });
+
+                            dialogBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //confirm
+                                    DataSchedule update = new DataSchedule();
+                                    update = current;
+                                    update.feed_amount = etEditFeedAmount.getText().toString();
+                                    editAt(getAdapterPosition(), update);
+                                }
+                            });
+                            dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog b = dialogBuilder.create();
+                            b.show();
+
                         }
 
                     });
@@ -183,9 +214,9 @@ public class AdapterSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
 
-
-
         }
+
+
     }
 
     //

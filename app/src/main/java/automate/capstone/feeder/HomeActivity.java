@@ -74,11 +74,14 @@ public class HomeActivity extends AppCompatActivity
                 dh.execute(type);
                 try{
                     Store.logs = dh.get();
-                    btnAutomatic.setEnabled(true);
-                    btnManual.setEnabled(true);
-                    btnViewLogs.setEnabled(true);
-                    menu_nav.setGroupEnabled(R.id.nav_group, true);
-                    Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                    if(!Store.logs.equals(null)) {
+                        btnAutomatic.setEnabled(true);
+                        btnManual.setEnabled(true);
+                        btnViewLogs.setEnabled(true);
+                        menu_nav.setGroupEnabled(R.id.nav_group, true);
+
+                        Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                    }
                 }catch(Exception e){
                     btnAutomatic.setEnabled(false);
                     btnManual.setEnabled(false);
