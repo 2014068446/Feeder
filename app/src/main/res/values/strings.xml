@@ -9,8 +9,8 @@
     <string name="title_activity_manual_mode">Manual Mode</string>
     <string name="title_activity_view_logs">View Logs</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_view_schedule_list">View Schedule List</string>
-    <string name="title_activity_view_schedule">View SChedule</string>
+    <string name="title_activity_view_schedule_list">View Schedule</string>
+    <string name="title_activity_view_schedule">Edit Schedule</string>
     <string-array name="duration_key">
         <item>1 day</item>
         <item>2 days</item>

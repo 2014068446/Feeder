@@ -44,4 +44,11 @@
         tools:background="@android:drawable/ic_delete" />
 
 
+    <TextView
+        android:id="@+id/tv_hidden_leaf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdasdasfas"
+        android:visibility="visible" />
+
 </RelativeLayout>
