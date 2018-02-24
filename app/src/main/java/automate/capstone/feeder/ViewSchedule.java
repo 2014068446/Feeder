@@ -59,7 +59,6 @@ public class ViewSchedule extends AppCompatActivity
         etEditFeed.setText(getIntent().getStringExtra("feedsToEdit"));
 
         Toast.makeText(this, "wat" + (Store.schedules_id),Toast.LENGTH_SHORT).show();
-
         /*
         JSONObject obj = null;
         try {

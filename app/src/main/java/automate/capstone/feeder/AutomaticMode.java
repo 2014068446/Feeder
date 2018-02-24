@@ -67,7 +67,7 @@ public class AutomaticMode extends AppCompatActivity
 
 
         et_feeds = (EditText)findViewById(R.id.et_feeds);
-        et_schedule_name = (EditText)findViewById(R.id.et_schedule_name_editing);
+        et_schedule_name = (EditText)findViewById(R.id.et_schedule_name);
         tvStartDate = (TextView) findViewById(R.id.tv_start_date_desc);
         tv_schedule_name = (TextView) findViewById(R.id.tv_schedule_name);
         tv_feed = (TextView) findViewById(R.id.tv_feed);
