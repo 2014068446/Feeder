@@ -42,7 +42,7 @@ public class AdapterAutomaticMode extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (AdapterAutomaticMode.MyHolder) holder;
         current = data.get(position);
-        myHolder.tvTime.setText(data.get(position).toString());
+        myHolder.tvTime.setText(current);
     }
 
     @Override

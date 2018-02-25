@@ -52,7 +52,7 @@ public class ViewSchedule extends AppCompatActivity
     private AdapterEditSchedule adapterEditSchedule;
     private RecyclerView recyclerEditSchedule;
     List<DataSchedule> data = new ArrayList<>();
-    List<DataEditScheduleRecycler> timeArray = new ArrayList();
+    List<String> timeArray = new ArrayList();
     TextView tvEditDate;
     EditText etEditFeed,etEditName;
     private RecyclerView recyclerSchedule;
@@ -171,7 +171,7 @@ public class ViewSchedule extends AppCompatActivity
                 Toast.makeText(this, "You cannot enter more than two same time.", Toast.LENGTH_SHORT).show();
             }
             else{
-                timeArray.add(dataTime);
+                timeArray.add(dataTime.getTime());
                 adapterEditSchedule.notifyDataSetChanged();
             }
 

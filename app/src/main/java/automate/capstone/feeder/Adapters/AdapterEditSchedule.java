@@ -6,15 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
 
-import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
 import automate.capstone.feeder.DataRecycler.DataEditScheduleRecycler;
-import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.R;
 
 /**
@@ -24,12 +21,12 @@ import automate.capstone.feeder.R;
 public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
-    List<DataEditScheduleRecycler> timeArray = Collections.emptyList();
-    DataEditScheduleRecycler current;
+    List<String> timeArray = Collections.emptyList();
+    String current;
     AdapterEditSchedule.MyHolder myHolder;
     Button removeTime;
 
-    public AdapterEditSchedule(Context context, List<DataEditScheduleRecycler> timeArray) {
+    public AdapterEditSchedule(Context context, List<String> timeArray) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.timeArray = timeArray;
@@ -46,7 +43,7 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         myHolder = (AdapterEditSchedule.MyHolder) holder;
         current = timeArray.get(position);
-        myHolder.tvTime.setText(current.getTime());
+        myHolder.tvTime.setText(current);
     }
 
     @Override
