@@ -27,7 +27,7 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
     List<DataEditScheduleRecycler> timeArray = Collections.emptyList();
     DataEditScheduleRecycler current;
     AdapterEditSchedule.MyHolder myHolder;
-    public Button removeTime;
+    Button removeTime;
 
     public AdapterEditSchedule(Context context, List<DataEditScheduleRecycler> timeArray) {
         this.context = context;
@@ -58,13 +58,13 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
         public MyHolder(View itemView) {
             super(itemView);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time_edit_sched_recycler);
-            //removeTime = (Button) itemView.findViewById(R.id.btn_remove_time_edit_schedule);
-            //removeTime.setOnClickListener(new View.OnClickListener() {
-            //    @Override
-             //   public void onClick(View v) {
-             //       removeAt(getAdapterPosition());
-             //   }
-            //});
+            removeTime = (Button) itemView.findViewById(R.id.btn_editmode_remove_time);
+            removeTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeAt(getAdapterPosition());
+                }
+            });
 
         }
     }
