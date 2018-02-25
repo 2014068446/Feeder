@@ -52,7 +52,7 @@ public class ViewSchedule extends AppCompatActivity
     private AdapterEditSchedule adapterEditSchedule;
     private RecyclerView recyclerEditSchedule;
     List<DataSchedule> data = new ArrayList<>();
-    List timeArray = new ArrayList();
+    List<DataEditScheduleRecycler> timeArray = new ArrayList();
     TextView tvEditDate;
     EditText etEditFeed,etEditName;
     private RecyclerView recyclerSchedule;
@@ -64,12 +64,6 @@ public class ViewSchedule extends AppCompatActivity
         setContentView(R.layout.activity_view_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        tvEditDate = (TextView) findViewById(R.id.tv_edit_date_placeholder);
-        etEditFeed= (EditText) findViewById(R.id.et_edit_feed_amount);
-        etEditName= (EditText) findViewById(R.id.et_schedule_name_placeholder);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -78,7 +72,9 @@ public class ViewSchedule extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        tvEditDate = (TextView) findViewById(R.id.tv_edit_date_placeholder);
+        etEditFeed= (EditText) findViewById(R.id.et_edit_feed_amount);
+        etEditName= (EditText) findViewById(R.id.et_schedule_name_placeholder);
 
 
         btnEditDate = (Button) findViewById(R.id.btn_edit_date);
@@ -129,13 +125,14 @@ public class ViewSchedule extends AppCompatActivity
                 dataView.start_date= json_data.getString("start_date");
                 data.add(dataView);
             }
+
         } catch (JSONException e) {
             Toast.makeText(this, "No logs found.", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
         recyclerEditSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
-        adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,data);
+        adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timeArray);
         recyclerEditSchedule.setAdapter(adapterEditSchedule);
         recyclerEditSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
 
@@ -163,7 +160,7 @@ public class ViewSchedule extends AppCompatActivity
 
         if (view.isShown()) {
             DataEditScheduleRecycler dataTime = new DataEditScheduleRecycler();
-            adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,data);
+            adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timeArray);
             recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
             recyclerSchedule.setAdapter(adapterEditSchedule);
             recyclerSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
@@ -174,7 +171,7 @@ public class ViewSchedule extends AppCompatActivity
                 Toast.makeText(this, "You cannot enter more than two same time.", Toast.LENGTH_SHORT).show();
             }
             else{
-                timeArray.add(dataTime.getTime());
+                timeArray.add(dataTime);
                 adapterEditSchedule.notifyDataSetChanged();
             }
 
@@ -233,22 +230,7 @@ public class ViewSchedule extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_auto) {
-            Intent intent = new Intent(this, AutomaticMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_man) {
-            Intent intent = new Intent(this, ManualMode.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_logs) {
-            Intent intent = new Intent(this, ViewLogs.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_schedule) {
-            Intent intent = new Intent(this, ViewScheduleList.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
-        }
+        new NavigationItemSelect(this,id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

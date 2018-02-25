@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
+import automate.capstone.feeder.DataRecycler.DataEditScheduleRecycler;
 import automate.capstone.feeder.DataRecycler.DataSchedule;
 import automate.capstone.feeder.R;
 
@@ -23,15 +24,14 @@ import automate.capstone.feeder.R;
 public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
-    List<DataSchedule> data = Collections.emptyList();
-    List<String> timeArray = Collections.emptyList();;
-    String current;
+    List<DataEditScheduleRecycler> timeArray = Collections.emptyList();
+    DataEditScheduleRecycler current;
+    AdapterEditSchedule.MyHolder myHolder;
     public Button removeTime;
 
-    public AdapterEditSchedule(Context context, List<DataSchedule> data) {
+    public AdapterEditSchedule(Context context, List<DataEditScheduleRecycler> timeArray) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.data = data;
         this.timeArray = timeArray;
 
     }
@@ -44,13 +44,13 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyHolder myHolder = (AdapterEditSchedule.MyHolder) holder;
-        current = data.get(position).toString();
-        myHolder.tvTime.setText(data.get(position).toString());
+        myHolder = (AdapterEditSchedule.MyHolder) holder;
+        current = timeArray.get(position);
+        myHolder.tvTime.setText(current.getTime());
     }
 
     @Override
-    public int getItemCount() {return data.size();}
+    public int getItemCount() {return timeArray.size();}
 
 
     class MyHolder extends RecyclerView.ViewHolder {
@@ -70,7 +70,7 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void removeAt(int position) {
-        data.remove(position);
+        timeArray.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
     }

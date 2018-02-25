@@ -9,10 +9,6 @@
     tools:showIn="@layout/app_bar_view_schedule">
 
 
-
-
-
-
     <TextView
         android:id="@+id/tv_edit_schedule_name"
         android:layout_width="wrap_content"
@@ -34,13 +30,13 @@
 
 
     <TextView
-        android:layout_below="@id/tv_edit_date"
         android:id="@+id/tv_edit_feed_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set New Feed Amount: "
-        android:layout_marginTop="30dp"
-        android:layout_alignLeft="@+id/tv_edit_date"/>
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/btn_edit_time"
+        android:layout_marginTop="16dp"
+        android:text="Set New Feed Amount: " />
 
     <EditText
         android:layout_toRightOf="@+id/tv_edit_schedule_name"
@@ -64,16 +60,16 @@
         android:id="@+id/btn_edit_date"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/tv_edit_date_placeholder"
-        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/et_schedule_name_placeholder"
         android:background="@android:drawable/ic_menu_my_calendar" />
 
     <Button
         android:id="@+id/btn_edit_time"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignStart="@+id/btn_edit_date"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toEndOf="@+id/tv_edit_schedule_name"
         android:background="@android:drawable/ic_menu_recent_history" />
 
     <EditText
@@ -89,43 +85,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv_edit_feed_amount"
-        android:layout_alignStart="@+id/btn_edit_time"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/et_edit_feed_amount"
         android:background="?attr/colorButtonNormal"
         android:entries="@array/measure_key" />
 
 
     <Button
         android:id="@+id/btn_edit_accept"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
 
-        android:layout_alignEnd="@+id/btn_edit_time"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="11dp"
+        android:layout_below="@+id/recycler_edit_schedule"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         android:onClick="editAccept"
         android:text="Accept" />
 
     <Button
         android:id="@+id/btn_edit_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
 
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_edit_accept"
-        android:layout_alignBottom="@+id/btn_edit_accept"
-        android:layout_alignStart="@+id/et_edit_feed_amount"
+        android:layout_alignStart="@+id/btn_edit_accept"
+        android:layout_below="@+id/btn_edit_accept"
+        android:layout_marginTop="27dp"
         android:onClick="editCancel"
         android:text="Cancel" />
 
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:id="@+id/recycler_edit_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
 
-        >
+        android:layout_below="@+id/et_edit_feed_amount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp">
 
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_edit_date"
+        android:layout_below="@+id/btn_edit_date"
+        android:text="Set New Time" />
 </RelativeLayout>
