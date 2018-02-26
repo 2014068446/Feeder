@@ -56,7 +56,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="192.168.100.20"/>
+        android:text="169.254.238.20"/>
 
     <TextView
         android:id="@+id/textView6"

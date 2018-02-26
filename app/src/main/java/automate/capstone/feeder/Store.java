@@ -1,5 +1,7 @@
 package automate.capstone.feeder;
 
+import org.json.JSONArray;
+
 /**
  * Created by rapio on 30/01/2018.
  */

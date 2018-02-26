@@ -52,7 +52,7 @@ public class ViewSchedule extends AppCompatActivity
     private AdapterEditSchedule adapterEditSchedule;
     private RecyclerView recyclerEditSchedule;
     List<DataSchedule> data = new ArrayList<>();
-    List<String> timeArray = new ArrayList();
+    List<String> timesArray = new ArrayList();
     TextView tvEditDate;
     EditText etEditFeed,etEditName;
     private RecyclerView recyclerSchedule;
@@ -110,7 +110,10 @@ public class ViewSchedule extends AppCompatActivity
                 etEditName.setText(json_data.getString("schedule_name"));
                 tvEditDate.setText(json_data.getString("start_date"));
                 etEditFeed.setText(json_data.getString("feed_amount"));
-
+                for(int j = 0;j<jsonTimes.length();j++){
+                    JSONObject json_data_time = jsonTimes.getJSONObject(j);
+                    timesArray.add(json_data_time.getString("time"));
+                }
                 //data.add(dataLog);
             }
         } catch (JSONException e) {
@@ -132,7 +135,7 @@ public class ViewSchedule extends AppCompatActivity
         }
 
         recyclerEditSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
-        adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timeArray);
+        adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timesArray);
         recyclerEditSchedule.setAdapter(adapterEditSchedule);
         recyclerEditSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
 
@@ -141,7 +144,8 @@ public class ViewSchedule extends AppCompatActivity
     ///////////////////////////////////////////////////////////////////////
     public void editAccept(View view) {
         //dito lagay edit
-
+        DatabaseHelper dh = new DatabaseHelper(this);
+       // dh.execute("edit schedule",);
 
 
 
@@ -154,24 +158,22 @@ public class ViewSchedule extends AppCompatActivity
 
     }
 
-
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
         if (view.isShown()) {
             DataEditScheduleRecycler dataTime = new DataEditScheduleRecycler();
-            adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timeArray);
+            adapterEditSchedule =  new AdapterEditSchedule(ViewSchedule.this,timesArray);
             recyclerSchedule = (RecyclerView) findViewById(R.id.recycler_edit_schedule);
             recyclerSchedule.setAdapter(adapterEditSchedule);
             recyclerSchedule.setLayoutManager(new LinearLayoutManager(ViewSchedule.this));
             dataTime.setTime(String.format("%02d:%02d", hourOfDay, minute));
 
 
-            if (timeArray.contains(dataTime.getTime())) {
+            if (timesArray.contains(dataTime.getTime())) {
                 Toast.makeText(this, "You cannot enter more than two same time.", Toast.LENGTH_SHORT).show();
             }
             else{
-                timeArray.add(dataTime.getTime());
+                timesArray.add(dataTime.getTime());
                 adapterEditSchedule.notifyDataSetChanged();
             }
 

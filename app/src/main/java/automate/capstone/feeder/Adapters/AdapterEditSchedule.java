@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Collections;
 import java.util.List;
 
 import automate.capstone.feeder.DataRecycler.DataEditScheduleRecycler;
 import automate.capstone.feeder.R;
+import automate.capstone.feeder.Store;
 
 /**
  * Created by Donnald on 2/7/2018.
@@ -25,7 +30,7 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
     String current;
     AdapterEditSchedule.MyHolder myHolder;
     Button removeTime;
-
+    JSONObject obj = null;
     public AdapterEditSchedule(Context context, List<String> timeArray) {
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -43,6 +48,9 @@ public class AdapterEditSchedule extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         myHolder = (AdapterEditSchedule.MyHolder) holder;
         current = timeArray.get(position);
+
+
+        //JSONArray jsonSchedule= obj.getJSONArray("schedule");
         myHolder.tvTime.setText(current);
     }
 
