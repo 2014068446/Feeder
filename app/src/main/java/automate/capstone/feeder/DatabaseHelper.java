@@ -288,6 +288,53 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
 
             }
         }
+        else if(type.equals("edit schedule")){
+            String log_title=params[1];
+            String log_info=params[2];
+
+            String scheduleName=params[3];
+            String feed=params[4];
+            String duration=params[5];
+            String measure=params[6];
+            String startdate=params[7];
+            String time=params[8];
+            String addscheduleurl = home_url + "/home/addschedule";
+            try {
+                URL url = new URL(addscheduleurl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data =
+                        URLEncoder.encode("log_title","UTF-8")+"="+URLEncoder.encode(log_title,"UTF-8")+"&"
+                                +URLEncoder.encode("log_info","UTF-8")+"="+URLEncoder.encode(log_info,"UTF-8")+"&"
+                                +URLEncoder.encode("schedulename","UTF-8")+"="+URLEncoder.encode(scheduleName,"UTF-8")+"&"
+                                +URLEncoder.encode("feed","UTF-8")+"="+URLEncoder.encode(feed,"UTF-8")+"&"
+                                +URLEncoder.encode("duration","UTF-8")+"="+URLEncoder.encode(duration,"UTF-8")+"&"
+                                +URLEncoder.encode("measure","UTF-8")+"="+URLEncoder.encode(measure,"UTF-8")+"&"
+                                +URLEncoder.encode("startdate","UTF-8")+"="+URLEncoder.encode(startdate,"UTF-8")+"&"
+                                +URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine()) != null){
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            }catch(Exception e){
+
+            }
+        }
         return null;
     }
 

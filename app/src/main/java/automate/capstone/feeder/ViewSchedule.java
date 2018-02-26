@@ -19,9 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -58,6 +60,7 @@ public class ViewSchedule extends AppCompatActivity
     private RecyclerView recyclerSchedule;
     Button btnEditTime, btnEditDate;
     DataSchedule dataView;
+    Spinner spnrDuration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +78,11 @@ public class ViewSchedule extends AppCompatActivity
         tvEditDate = (TextView) findViewById(R.id.tv_edit_date_placeholder);
         etEditFeed= (EditText) findViewById(R.id.et_edit_feed_amount);
         etEditName= (EditText) findViewById(R.id.et_schedule_name_placeholder);
-
+        spnrDuration = (Spinner) findViewById(R.id.edit_spnr_unit);
+        ArrayAdapter<CharSequence> adapter;
+        adapter = ArrayAdapter.createFromResource(this,
+                R.array.measure_key, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         btnEditDate = (Button) findViewById(R.id.btn_edit_date);
         btnEditTime = (Button) findViewById(R.id.btn_edit_time);
@@ -144,12 +151,23 @@ public class ViewSchedule extends AppCompatActivity
     ///////////////////////////////////////////////////////////////////////
     public void editAccept(View view) {
         //dito lagay edit
+
+        EditText et_schedule_name = (EditText)findViewById(R.id.et_schedule_name_placeholder);
+        EditText et_feed_amount = (EditText) findViewById(R.id.et_edit_feed_amount);
+        String duration = spnrDuration.getSelectedItem().toString();
+        String schedule_name = et_schedule_name.getText().toString();
+        String feed_amount = et_feed_amount.getText().toString();
+        String startdate = tvEditDate.getText().toString();
+        String time = "";
+        String title = "Schedule has been edited "+schedule_name;
+        String log = feed_amount+"g";
+
+        for(String element: timesArray){
+            DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
+            time+=element.toString()+",";
+        }
         DatabaseHelper dh = new DatabaseHelper(this);
-       // dh.execute("edit schedule",);
-
-
-
-        Toast.makeText(this, "accepteddd", Toast.LENGTH_LONG).show();
+        dh.execute("edit schedule",title,log,schedule_name,feed_amount,duration,"g",startdate,time);
     }
 
     public void editCancel(View view) {
