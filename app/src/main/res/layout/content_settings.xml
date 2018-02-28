@@ -65,9 +65,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/et_mobile_number"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         android:text="Mobile number to send notifications:" />
 
 </RelativeLayout>
