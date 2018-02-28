@@ -298,7 +298,8 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
             String measure=params[6];
             String startdate=params[7];
             String time=params[8];
-            String addscheduleurl = home_url + "/home/addschedule";
+            String id = params[9];
+            String addscheduleurl = home_url + "/home/editScheduleInsert";
             try {
                 URL url = new URL(addscheduleurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -315,7 +316,42 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
                                 +URLEncoder.encode("duration","UTF-8")+"="+URLEncoder.encode(duration,"UTF-8")+"&"
                                 +URLEncoder.encode("measure","UTF-8")+"="+URLEncoder.encode(measure,"UTF-8")+"&"
                                 +URLEncoder.encode("startdate","UTF-8")+"="+URLEncoder.encode(startdate,"UTF-8")+"&"
+                                +URLEncoder.encode("id","UTF-8")+"="+URLEncoder.encode(id,"UTF-8")+"&"
                                 +URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine()) != null){
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            }catch(Exception e){
+
+            }
+        }
+        else if(type.equals("save settings")){
+            //String feed_amount=params[1];
+
+            String addscheduleurl = home_url + "/home/savesettings";
+            String container_critical = params[1];
+            try {
+                URL url = new URL(addscheduleurl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data =
+                        URLEncoder.encode("container_critical","UTF-8")+"="+URLEncoder.encode(container_critical,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -371,6 +407,10 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
             context.startActivity(intent);
         }if(type.equals("delete schedule")){
             Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_LONG).show();
+        }if(type.equals("edit schedule")){
+            Toast.makeText(context,"Schedule Updated",Toast.LENGTH_LONG).show();
+        }if(type.equals("save settings")){
+            Toast.makeText(context,result,Toast.LENGTH_LONG).show();
         }
         Store.finished=true;
 

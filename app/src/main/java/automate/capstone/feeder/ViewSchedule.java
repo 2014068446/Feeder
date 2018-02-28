@@ -119,7 +119,9 @@ public class ViewSchedule extends AppCompatActivity
                 etEditFeed.setText(json_data.getString("feed_amount"));
                 for(int j = 0;j<jsonTimes.length();j++){
                     JSONObject json_data_time = jsonTimes.getJSONObject(j);
-                    timesArray.add(json_data_time.getString("time"));
+                    if(!timesArray.contains(json_data_time.getString("time"))){
+                        timesArray.add(json_data_time.getString("time"));
+                    }
                 }
                 //data.add(dataLog);
             }
@@ -167,7 +169,7 @@ public class ViewSchedule extends AppCompatActivity
             time+=element.toString()+",";
         }
         DatabaseHelper dh = new DatabaseHelper(this);
-        dh.execute("edit schedule",title,log,schedule_name,feed_amount,duration,"g",startdate,time);
+        dh.execute("edit schedule",title,log,schedule_name,feed_amount,duration,"g",startdate,time,Store.schedules_id);
     }
 
     public void editCancel(View view) {

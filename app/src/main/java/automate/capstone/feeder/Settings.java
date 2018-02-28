@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class Settings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ToggleButton tbNotif;
     Button btnSubmitSetting;
+    EditText etMobileNumber;
     SeekBar sbNotif;
     TextView tvPercentage;
     CheckBox cbUserNotif,cbSystemNotif;
@@ -58,27 +60,30 @@ public class Settings extends AppCompatActivity
 
         String toggleButton, checkboxUser, checkboxSystem;
         sbNotif = (SeekBar) findViewById(R.id.sb_notif);
-        tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
+        etMobileNumber = (EditText) findViewById(R.id.et_mobile_number);
+        //tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
         tvPercentage = (TextView) findViewById(R.id.tv_percentage_container);
-        cbSystemNotif = (CheckBox) findViewById(R.id.cb_sysnotif);
-        cbUserNotif = (CheckBox) findViewById(R.id.cb_usernotif);
+       // cbSystemNotif = (CheckBox) findViewById(R.id.cb_sysnotif);
+       // cbUserNotif = (CheckBox) findViewById(R.id.cb_usernotif);
 
         try {
             JSONArray jsonArray = new JSONArray(Store.settings); //Store.logs when connecting to db
-            for(int i = 0;i<jsonArray.length();i++){
-                JSONObject json_data = jsonArray.getJSONObject(i);
+            container_progress = Integer.parseInt(jsonArray.getJSONObject(0).getString("container_critical").toString());
+            tvPercentage.setText(Integer.toString(container_progress)+"0%");
+              //for(int i = 0;i<jsonArray.length();i++){
+                //JSONObject json_data = jsonArray.getJSONObject(i);
 
-                checkboxUser = json_data.getString("user_logs");
-                checkboxSystem = json_data.getString("system_logs");
-                toggleButton = json_data.getString("sms_notification"); // Default
+                //checkboxUser = json_data.getString("user_logs");
+                //checkboxSystem = json_data.getString("system_logs");
+                //toggleButton = json_data.getString("sms_notification"); // Default
 
-                container_progress = Integer.parseInt(json_data.getString("critical_value").toString());
-                tvPercentage.setText(Integer.toString(container_progress)+"0%");
+                //container_progress = Integer.parseInt(json_data.getString("container_critical").toString());
 
-                tbNotif.setChecked(Boolean.parseBoolean(toggleButton));
-                cbUserNotif.setChecked(Boolean.parseBoolean(checkboxUser));
-                cbSystemNotif.setChecked(Boolean.parseBoolean(checkboxSystem));
-            }
+
+                //tbNotif.setChecked(Boolean.parseBoolean(toggleButton));
+                //cbUserNotif.setChecked(Boolean.parseBoolean(checkboxUser));
+                //cbSystemNotif.setChecked(Boolean.parseBoolean(checkboxSystem));
+            //}
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,7 +126,7 @@ public class Settings extends AppCompatActivity
         btnSubmitSetting = (Button) findViewById(R.id.btn_submit_settings);
     }
 
-    public void checkBoxNotif(View view) {
+    /*public void checkBoxNotif(View view) {
         //checks the activity between two checkboxes
         boolean checked = ((CheckBox) view).isChecked();
         switch (view.getId()) {
@@ -147,10 +152,12 @@ public class Settings extends AppCompatActivity
                 break;
         }
     }
-
+    */
     public void saveConfig(View view) {
         //do process when submitting config to RPI
-        Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
+        DatabaseHelper dh = new DatabaseHelper(this);
+        dh.execute("save settings", Integer.toString(container_progress));
+        //Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
