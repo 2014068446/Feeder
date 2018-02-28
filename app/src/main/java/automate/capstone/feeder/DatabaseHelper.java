@@ -342,6 +342,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
 
             String addscheduleurl = home_url + "/home/savesettings";
             String container_critical = params[1];
+            String mobile_number = params[2];
             try {
                 URL url = new URL(addscheduleurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -351,7 +352,8 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data =
-                        URLEncoder.encode("container_critical","UTF-8")+"="+URLEncoder.encode(container_critical,"UTF-8");
+                        URLEncoder.encode("container_critical","UTF-8")+"="+URLEncoder.encode(container_critical,"UTF-8")+"&"
+                        +URLEncoder.encode("mobile_number","UTF-8")+"="+URLEncoder.encode(mobile_number,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

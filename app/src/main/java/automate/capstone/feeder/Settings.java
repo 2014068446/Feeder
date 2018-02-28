@@ -60,16 +60,18 @@ public class Settings extends AppCompatActivity
 
         String toggleButton, checkboxUser, checkboxSystem;
         sbNotif = (SeekBar) findViewById(R.id.sb_notif);
-        etMobileNumber = (EditText) findViewById(R.id.et_mobile_number);
+        etMobileNumber = (EditText) findViewById(R.id.et_mobnum);
         //tbNotif = (ToggleButton) findViewById(R.id.toggle_notifsms);
         tvPercentage = (TextView) findViewById(R.id.tv_percentage_container);
        // cbSystemNotif = (CheckBox) findViewById(R.id.cb_sysnotif);
        // cbUserNotif = (CheckBox) findViewById(R.id.cb_usernotif);
-
+        //String contact_num = "1asdad";
         try {
             JSONArray jsonArray = new JSONArray(Store.settings); //Store.logs when connecting to db
             container_progress = Integer.parseInt(jsonArray.getJSONObject(0).getString("container_critical").toString());
-            tvPercentage.setText(Integer.toString(container_progress)+"0%");
+            String contact_num=jsonArray.getJSONObject(0).getString("mobile_number").toString();
+            etMobileNumber.setText(contact_num);
+            //etMobileNumber.setText();
               //for(int i = 0;i<jsonArray.length();i++){
                 //JSONObject json_data = jsonArray.getJSONObject(i);
 
@@ -84,9 +86,11 @@ public class Settings extends AppCompatActivity
                 //cbUserNotif.setChecked(Boolean.parseBoolean(checkboxUser));
                 //cbSystemNotif.setChecked(Boolean.parseBoolean(checkboxSystem));
             //}
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
         }
+
+        tvPercentage.setText(Integer.toString(container_progress)+"0%");
 
         sbNotif.setProgress(container_progress);
         sbNotif.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -156,7 +160,8 @@ public class Settings extends AppCompatActivity
     public void saveConfig(View view) {
         //do process when submitting config to RPI
         DatabaseHelper dh = new DatabaseHelper(this);
-        dh.execute("save settings", Integer.toString(container_progress));
+        String mobile_number = etMobileNumber.getText().toString();
+        dh.execute("save settings", Integer.toString(container_progress),mobile_number);
         //Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
     }
 
