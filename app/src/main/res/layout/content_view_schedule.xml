@@ -59,28 +59,28 @@
         android:text="Schedule Name Placeholder"/>
 
     <TextView
-        android:layout_toRightOf="@+id/tv_edit_date"
         android:id="@+id/tv_edit_date_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_edit_date"
-        android:text="January 1, 2018 Placeholder"/>
+        android:layout_alignStart="@+id/textView5"
+        android:layout_alignTop="@+id/btn_edit_date"
+        android:text="asd" />
 
 
     <Button
         android:id="@+id/btn_edit_date"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignTop="@+id/tv_edit_date_placeholder"
-        android:layout_toEndOf="@+id/et_schedule_name_placeholder"
+        android:layout_alignTop="@+id/tv_edit_date"
+        android:layout_toEndOf="@+id/textView2"
         android:background="@android:drawable/ic_menu_my_calendar" />
 
     <Button
         android:id="@+id/btn_edit_time"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_toEndOf="@+id/tv_edit_schedule_name"
+        android:layout_below="@+id/btn_edit_date"
+        android:layout_toEndOf="@+id/textView2"
         android:background="@android:drawable/ic_menu_recent_history" />
 
     <EditText
@@ -129,10 +129,7 @@
         android:id="@+id/recycler_edit_schedule"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-
-        android:layout_below="@+id/et_edit_feed_amount"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp">
+        android:layout_marginTop="200dp">
 
     </android.support.v7.widget.RecyclerView>
 
