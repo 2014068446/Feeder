@@ -71,8 +71,9 @@ public class HomeActivity extends AppCompatActivity
                 rpi_ip_address = etIP_Address.getText().toString();
                 Store.ip_address = rpi_ip_address;
                 String type="test con";
-                dh.execute(type);
+
                 try{
+                    dh.execute(type);
                     Store.logs = dh.get();
                     if(!Store.logs.equals(null)) {
                         btnAutomatic.setEnabled(true);

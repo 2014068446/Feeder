@@ -44,6 +44,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
             try {
                 URL url = new URL(viewlogurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(5000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
@@ -392,7 +393,14 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
         }if (type.equals("test con")) {
             Store.logs = result;
         }if(type.equals("add schedule")){
-            Toast.makeText(context,"Schedule Created Successfully!", Toast.LENGTH_LONG).show();
+            try {
+                if(result.equals("true")) {
+                    Toast.makeText(context, "Schedule Added Successfully", Toast.LENGTH_LONG).show();
+                }
+            }catch(Exception e ){
+                Toast.makeText(context, "Schedule Failed to Add", Toast.LENGTH_LONG).show();
+
+            }
         }if(type.equals("select manual")){
             Toast.makeText(context,result, Toast.LENGTH_LONG).show();
         }if(type.equals("view schedule")){
@@ -410,7 +418,11 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
         }if(type.equals("delete schedule")){
             Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_LONG).show();
         }if(type.equals("edit schedule")){
-            Toast.makeText(context,"Schedule Updated",Toast.LENGTH_LONG).show();
+            if(result.equals("true")) {
+                Toast.makeText(context, "Schedule Updated Successfully", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(context, "Schedule Failed to Update", Toast.LENGTH_LONG).show();
+            }
         }if(type.equals("save settings")){
             Toast.makeText(context,result,Toast.LENGTH_LONG).show();
         }

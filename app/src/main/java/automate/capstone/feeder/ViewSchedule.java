@@ -101,9 +101,6 @@ public class ViewSchedule extends AppCompatActivity
                 datepicker.show(getSupportFragmentManager(), "date picker");
             }
         });
-
-        //
-        Toast.makeText(this, "wat" + (Store.schedules_id),Toast.LENGTH_SHORT).show();
         JSONObject obj = null;
         try {
             obj = new JSONObject(Store.schedule);

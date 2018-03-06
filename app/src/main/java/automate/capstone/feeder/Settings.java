@@ -161,7 +161,12 @@ public class Settings extends AppCompatActivity
         //do process when submitting config to RPI
         DatabaseHelper dh = new DatabaseHelper(this);
         String mobile_number = etMobileNumber.getText().toString();
-        dh.execute("save settings", Integer.toString(container_progress),mobile_number);
+        String check_mobile_number= mobile_number.substring(0, 4);
+        if(check_mobile_number.equals("+639") && mobile_number.length()==13) {
+            dh.execute("save settings", Integer.toString(container_progress), mobile_number);
+        }else{
+            Toast.makeText(this,"Invalid Phone Number",Toast.LENGTH_SHORT).show();
+        }
         //Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
     }
 
