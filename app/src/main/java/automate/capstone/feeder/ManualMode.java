@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import automate.capstone.feeder.Utility.NumberValidator;
+
 public class ManualMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Spinner spnrMeasure;
@@ -74,8 +76,11 @@ public class ManualMode extends AppCompatActivity
         DatabaseHelper dh = new DatabaseHelper(this);
         et_manual_feed = (EditText) findViewById(R.id.et_manual_feed);
         String feed = et_manual_feed.getText().toString();
-        Toast.makeText(this,feed,Toast.LENGTH_LONG).show();
-        dh.execute("select manual",feed);
-
+        if(NumberValidator.isNumber(feed)) {
+            Toast.makeText(this, feed + "G of feeds Will be given", Toast.LENGTH_LONG).show();
+            dh.execute("select manual", feed);
+        } else {
+            Toast.makeText(this, "Please Enter Valid Input of Feed Amount", Toast.LENGTH_LONG).show();
+        }
     }
 }

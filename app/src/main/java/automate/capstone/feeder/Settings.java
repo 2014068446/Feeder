@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import automate.capstone.feeder.DataRecycler.DataLog;
+import automate.capstone.feeder.Utility.NumberValidator;
 
 public class Settings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -161,8 +162,14 @@ public class Settings extends AppCompatActivity
         //do process when submitting config to RPI
         DatabaseHelper dh = new DatabaseHelper(this);
         String mobile_number = etMobileNumber.getText().toString();
-        dh.execute("save settings", Integer.toString(container_progress),mobile_number);
-        //Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
+        mobile_number = NumberValidator.phoneNumberTrim(mobile_number);
+        if(NumberValidator.isPhoneNumber(mobile_number)){
+            dh.execute("save settings", Integer.toString(container_progress),mobile_number);
+            //Toast.makeText(this,"Saved!",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,"Please Enter a Valid Number",Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override

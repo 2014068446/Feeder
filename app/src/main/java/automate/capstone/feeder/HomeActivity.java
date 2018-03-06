@@ -17,12 +17,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import automate.capstone.feeder.Utility.NumberValidator;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
@@ -69,25 +70,29 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View v) {
                 DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
                 rpi_ip_address = etIP_Address.getText().toString();
-                Store.ip_address = rpi_ip_address;
-                String type="test con";
-                dh.execute(type);
-                try{
-                    Store.logs = dh.get();
-                    if(!Store.logs.equals(null)) {
-                        btnAutomatic.setEnabled(true);
-                        btnManual.setEnabled(true);
-                        btnViewLogs.setEnabled(true);
-                        menu_nav.setGroupEnabled(R.id.nav_group, true);
+                if (NumberValidator.isIpAddress(rpi_ip_address)){
+                    Store.ip_address = rpi_ip_address;
+                    String type = "test con";
+                    dh.execute(type);
+                    try {
+                        Store.logs = dh.get();
+                        if (!Store.logs.equals(null)) {
+                            btnAutomatic.setEnabled(true);
+                            btnManual.setEnabled(true);
+                            btnViewLogs.setEnabled(true);
+                            menu_nav.setGroupEnabled(R.id.nav_group, true);
 
-                        Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        btnAutomatic.setEnabled(false);
+                        btnManual.setEnabled(false);
+                        btnViewLogs.setEnabled(false);
+                        menu_nav.setGroupEnabled(R.id.nav_group, false);
+                        Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
                     }
-                }catch(Exception e){
-                    btnAutomatic.setEnabled(false);
-                    btnManual.setEnabled(false);
-                    btnViewLogs.setEnabled(false);
-                    menu_nav.setGroupEnabled(R.id.nav_group, false);
-                    Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(HomeActivity.this, "Please Enter a Valid IP Address", Toast.LENGTH_SHORT).show();
                 }
             }
         });

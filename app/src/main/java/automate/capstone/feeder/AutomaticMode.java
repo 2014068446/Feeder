@@ -37,6 +37,7 @@ import automate.capstone.feeder.Adapters.AdapterAutomaticMode;
 import automate.capstone.feeder.DataRecycler.DataAutomaticRecycler;
 import automate.capstone.feeder.Fragments.DatePickerFragment;
 import automate.capstone.feeder.Fragments.TimePickerFragment;
+import automate.capstone.feeder.Utility.NumberValidator;
 
 public class AutomaticMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener,AsyncResponse {
@@ -170,14 +171,20 @@ public class AutomaticMode extends AppCompatActivity
         String title = scheduleName+" has been created \n(Automatic Schedule)";
         String log = feed+" "+measure;
         //String log = "This schedule will serve "+feed+" "+measure+" every meal";
-        for(String element: data){
-            DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
-            time+=element.toString()+",";
-        }
+
+
+        if(NumberValidator.isNumber(feed)) {
+            for (String element : data) {
+                DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
+                time += element.toString() + ",";
+            }
             DatabaseHelper dh = new DatabaseHelper(this);
-            dh.execute("add schedule",title,log,scheduleName,feed,duration,measure,startdate,time);
-        //dh.delegate = AutomaticMode.this;
-        //dh.test();
+            dh.execute("add schedule", title, log, scheduleName, feed, duration, measure, startdate, time);
+            //dh.delegate = AutomaticMode.this;
+            //dh.test();
+        } else {
+            Toast.makeText(this, "Please enter Valid Feeds", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
