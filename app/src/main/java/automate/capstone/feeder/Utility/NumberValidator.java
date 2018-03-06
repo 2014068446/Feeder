@@ -10,14 +10,16 @@ public class NumberValidator {
 
     public static boolean isPhoneNumber(String phonenumber){
         boolean result = false;
-        if(((phonenumber.charAt(0)=='+')&&(phonenumber.length()==13)&&(phonenumber.substring(1,12).matches("[0-9]+")))
-                ||(phonenumber.matches("[0-9]+")&&(phonenumber.length()==11))) {
+        if(((phonenumber.startsWith("+63"))&&(phonenumber.length()==13)&&(phonenumber.substring(1,12).matches("[0-9]+")))) {
             result = true;
         }
         return result;
     }
 
-    public static String phoneNumberTrim(String phonenumber){
+    public static String phoneNumberConvertFormat(String phonenumber){
+        if(phonenumber.startsWith("0")){
+            phonenumber = "+63" + phonenumber.substring(1,11);
+        }
         phonenumber = phonenumber.replace("-", "");
         phonenumber = phonenumber.replace(" ", "");
         phonenumber = phonenumber.replace("(", "");
