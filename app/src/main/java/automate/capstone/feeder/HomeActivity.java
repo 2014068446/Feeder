@@ -1,6 +1,8 @@
 package automate.capstone.feeder;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +36,8 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navigationView;
     Menu menu_nav;
     String logs;
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+
 
 
         connection = false;
@@ -63,26 +69,73 @@ public class HomeActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         menu_nav = navigationView.getMenu();
-        menu_nav.setGroupEnabled(R.id.nav_group,false);
+        menu_nav.setGroupEnabled(R.id.nav_group, false);
         //Toast.makeText(this,Store.settings,Toast.LENGTH_LONG).show();
+
+        if(Store.logs != null){
+
+            btnAutomatic.setEnabled(true);
+            btnManual.setEnabled(true);
+            btnViewLogs.setEnabled(true);
+            menu_nav.setGroupEnabled(R.id.nav_group, true);
+
+        }
+
+        //preferences
+        preferences = getSharedPreferences("preferences.xml", Context.MODE_PRIVATE);
+        etIP_Address.setText(preferences.getString("IP_Address","No IP Address Found"));
+        if (NumberValidator.isIpAddress(preferences.getString("IP_Address","No IP Address Found"))) {
+            DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
+            Store.ip_address = preferences.getString("IP_Address","No IP Address Found");
+            String type = "test con";
+            dh.execute(type);
+            try {
+                Store.logs = dh.get();
+                if (!Store.logs.equals(null)) {
+                    //sharedpreference here
+                    btnAutomatic.setEnabled(true);
+                    btnManual.setEnabled(true);
+                    btnViewLogs.setEnabled(true);
+                    menu_nav.setGroupEnabled(R.id.nav_group, true);
+                    Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                    //save to shared preference
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("IP_Address",etIP_Address.getText().toString());
+                    editor.commit();
+                }
+            } catch (Exception e) {
+                btnAutomatic.setEnabled(false);
+                btnManual.setEnabled(false);
+                btnViewLogs.setEnabled(false);
+                menu_nav.setGroupEnabled(R.id.nav_group, false);
+                Toast.makeText(HomeActivity.this, "Connection Fail", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseHelper dh = new DatabaseHelper(HomeActivity.this);
                 rpi_ip_address = etIP_Address.getText().toString();
-                if (NumberValidator.isIpAddress(rpi_ip_address)){
+                if (NumberValidator.isIpAddress(rpi_ip_address)) {
                     Store.ip_address = rpi_ip_address;
                     String type = "test con";
                     dh.execute(type);
                     try {
                         Store.logs = dh.get();
                         if (!Store.logs.equals(null)) {
+                            //sharedpreference here
                             btnAutomatic.setEnabled(true);
                             btnManual.setEnabled(true);
                             btnViewLogs.setEnabled(true);
                             menu_nav.setGroupEnabled(R.id.nav_group, true);
 
                             Toast.makeText(HomeActivity.this, "Connection success", Toast.LENGTH_SHORT).show();
+                            //save to shared preference
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("IP_Address",etIP_Address.getText().toString());
+                            editor.commit();
                         }
                     } catch (Exception e) {
                         btnAutomatic.setEnabled(false);
@@ -96,7 +149,6 @@ public class HomeActivity extends AppCompatActivity
                 }
             }
         });
-
     }
 
     @Override

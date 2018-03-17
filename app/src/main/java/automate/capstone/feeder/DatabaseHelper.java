@@ -2,6 +2,7 @@ package automate.capstone.feeder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     Context context;
     public AsyncResponse delegate=null;
     AlertDialog alertDialog;
-
+    String onSplash=null;
     private String type;
     public DatabaseHelper(Context ctx){
         context = ctx;
@@ -39,8 +40,10 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
     protected String doInBackground(String... params) {
         type = params[0];
         String home_url="http://"+Store.ip_address+"/feeder";
+
         if(type.equals("view logs") || type.equals("test con")){
             String viewlogurl = home_url + "/home/logs";
+
             try {
                 URL url = new URL(viewlogurl);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -391,15 +394,14 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
             Intent intent = new Intent(context, ViewLogs.class);
             context.startActivity(intent);
         }if (type.equals("test con")) {
-            Store.logs = result;
+                Store.logs = result;
         }if(type.equals("add schedule")){
             try {
                 if(result.equals("true")) {
                     Toast.makeText(context, "Schedule Added Successfully", Toast.LENGTH_LONG).show();
                 }
-            }catch(Exception e ){
+            }catch(Exception e){
                 Toast.makeText(context, "Schedule Failed to Add", Toast.LENGTH_LONG).show();
-
             }
         }if(type.equals("select manual")){
             Toast.makeText(context,result, Toast.LENGTH_LONG).show();

@@ -35,7 +35,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="21dp"
-        android:background="@android:drawable/ic_menu_info_details" />
+        android:background="@drawable/ic_info_outline_black"
+        android:backgroundTint="@color/colorPrimaryDark" />
 
 
 </RelativeLayout>

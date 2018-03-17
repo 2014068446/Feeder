@@ -27,4 +27,13 @@
         android:layout_marginTop="34dp"
         android:id="@+id/tv_ContainerStatus" />
 
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/tv_ContainerStatus"
+        android:layout_marginTop="33dp"
+        android:text="Establishing Connection"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

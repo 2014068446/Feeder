@@ -31,17 +31,19 @@
         android:id="@+id/btn_view_sched_info"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_delete_sched"
-        android:layout_toLeftOf="@id/btn_delete_sched"
-        android:background="@android:drawable/ic_menu_info_details"/>
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/tv_schedule_name_recycler"
+        android:background="@drawable/ic_info_outline_black"
+        android:backgroundTint="@color/colorPrimaryDark" />
 
     <Button
         android:id="@+id/btn_delete_sched"
-        android:layout_width="50dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        tools:background="@android:drawable/ic_delete" />
+        android:layout_alignTop="@+id/btn_view_sched_info"
+        android:layout_toEndOf="@+id/btn_view_sched_info"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@drawable/ic_delete_black" />
 
 
     <TextView
