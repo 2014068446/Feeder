@@ -173,7 +173,7 @@ public class AutomaticMode extends AppCompatActivity
         //String log = "This schedule will serve "+feed+" "+measure+" every meal";
 
 
-        if(NumberValidator.isNumber(feed)) {
+        if(NumberValidator.isValidFeedInput(feed)) {
             for (String element : data) {
                 DataAutomaticRecycler dataTime = new DataAutomaticRecycler();
                 time += element.toString() + ",";
@@ -183,7 +183,7 @@ public class AutomaticMode extends AppCompatActivity
             //dh.delegate = AutomaticMode.this;
             //dh.test();
         } else {
-            Toast.makeText(this, "Please enter Valid Feeds", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter Valid Feeds Input", Toast.LENGTH_LONG).show();
         }
     }
 

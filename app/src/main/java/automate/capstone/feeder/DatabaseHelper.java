@@ -404,7 +404,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
                 Toast.makeText(context, "Schedule Failed to Add", Toast.LENGTH_LONG).show();
             }
         }if(type.equals("select manual")){
-            Toast.makeText(context,result, Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,result, Toast.LENGTH_LONG).show();
         }if(type.equals("view schedule")){
             Store.schedules = result;
             Intent intent = new Intent(context, ViewScheduleList.class);
@@ -426,7 +426,7 @@ public class DatabaseHelper extends AsyncTask<String,Void,String>{
                 Toast.makeText(context, "Schedule Failed to Update", Toast.LENGTH_LONG).show();
             }
         }if(type.equals("save settings")){
-            Toast.makeText(context,result,Toast.LENGTH_LONG).show();
+            //Toast.makeText(context,result,Toast.LENGTH_LONG).show();
         }
         Store.finished=true;
 

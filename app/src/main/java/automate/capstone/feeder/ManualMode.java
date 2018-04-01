@@ -76,7 +76,7 @@ public class ManualMode extends AppCompatActivity
         DatabaseHelper dh = new DatabaseHelper(this);
         et_manual_feed = (EditText) findViewById(R.id.et_manual_feed);
         String feed = et_manual_feed.getText().toString();
-        if(NumberValidator.isNumber(feed)) {
+        if(NumberValidator.isValidFeedInput(feed)) {
             Toast.makeText(this, feed + "G of feeds Will be given", Toast.LENGTH_LONG).show();
             dh.execute("select manual", feed);
         } else {
