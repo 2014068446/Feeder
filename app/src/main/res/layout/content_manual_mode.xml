@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="101dp"
-        android:text="Enter Amount of Feeds" />
+        android:text="Enter Amount of Pellets" />
 
     <EditText
         android:id="@+id/et_manual_feed"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Drop Feeds"
+        android:text="Drop Pellets"
         android:onClick="onSubmitManual"/>
 
 </RelativeLayout>

@@ -1,9 +1,7 @@
 package automate.capstone.feeder;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,12 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 
 import automate.capstone.feeder.Utility.NumberValidator;
 
@@ -24,6 +23,7 @@ public class ManualMode extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Spinner spnrMeasure;
     EditText et_manual_feed;
+    Button btn_manual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +75,24 @@ public class ManualMode extends AppCompatActivity
     public void onSubmitManual(View view) {
         DatabaseHelper dh = new DatabaseHelper(this);
         et_manual_feed = (EditText) findViewById(R.id.et_manual_feed);
+        btn_manual = (Button) findViewById(R.id.btn_drop_feeds);
         String feed = et_manual_feed.getText().toString();
         if(NumberValidator.isValidFeedInput(feed)) {
-            Toast.makeText(this, feed + "G of feeds Will be given", Toast.LENGTH_LONG).show();
+            btn_manual.setEnabled(false);
+            Toast.makeText(this, feed + " grams of pellets will be dropped.", Toast.LENGTH_LONG).show();
+
             dh.execute("select manual", feed);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btn_manual.setEnabled(true);
+                    Toast.makeText(ManualMode.this, "You can now drop pellets again.", Toast.LENGTH_SHORT).show();
+                }
+            }, 60000);
+
         } else {
-            Toast.makeText(this, "Please Enter Valid Input of Feed Amount", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please Enter Valid Input of Pellet Amount", Toast.LENGTH_LONG).show();
         }
     }
 }
