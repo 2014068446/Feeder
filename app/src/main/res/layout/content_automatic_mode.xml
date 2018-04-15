@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/spnr_unit"
         android:layout_toStartOf="@+id/et_feeds"
-        android:text="Pellet amount"
+        android:text="Feed amount"
         android:textSize="20sp" />
 
     <EditText
