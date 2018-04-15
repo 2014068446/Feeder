@@ -99,7 +99,7 @@ public class Settings extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d("ADebugTag", Integer.toString(progress));
-                container_progress = progress;
+                container_progress = progress + 2;
                 tvPercentage.setText(container_progress + "0%");
             }
 
