@@ -49,7 +49,7 @@ public class NumberValidator {
     public static boolean isValidFeedInput(String number){
         boolean result = false;
         if(isNumber(number)){
-            if (Integer.parseInt(number) > 0 && Integer.parseInt(number) <= 150){
+            if (Integer.parseInt(number) > 0 /*&& Integer.parseInt(number) <= 150 condition to limit feed amount*/){
                 result = true;
             }
         }
